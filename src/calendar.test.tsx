@@ -1,4 +1,5 @@
 import * as React from 'react'
+import '@testing-library/jest-dom'
 import {
   Box,
   Flex,
@@ -21,8 +22,8 @@ import {
   CalendarMonthName,
   CalendarDays,
   CalendarWeek,
-  CalendarDate,
-  CalendarValues,
+  type CalendarDate,
+  type CalendarValues,
 } from './index'
 import { render, screen, fireEvent } from 'renderer'
 
