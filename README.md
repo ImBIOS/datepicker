@@ -1,6 +1,9 @@
 # Datepicker
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-10-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 A simple datepicker component build with [date-fns][1] and [Chakra-UI][2].
@@ -104,7 +107,7 @@ export const theme = extendTheme(CalendarDefaultTheme, {
           borderColor: 'pink.400',
           rounded: 'none',
           shadow: 'none',
-          boxShadow: '32px 16px 0 6px #3B4DCC'
+          boxShadow: '32px 16px 0 6px #3B4DCC',
         },
       },
     },
@@ -130,7 +133,7 @@ export const theme = extendTheme(CalendarDefaultTheme, {
           },
         },
       },
-    }
+    },
   },
 })
 ```
@@ -142,11 +145,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { theme } from './theme'
 
 function App() {
-  return (
-    <ChakraProvider theme={theme}>
-      {/* children... */}
-    </ChakraProvider>
-  )
+  return <ChakraProvider theme={theme}>{/* children... */}</ChakraProvider>
 }
 ```
 
@@ -156,12 +155,12 @@ Theses changes will produce the following results in Calendar:
 
 ## Available components theme keys
 
-| Key name        | Description                                                               | Parts                                    |
-|-----------------|---------------------------------------------------------------------------|------------------------------------------|
-| Calendar        | A multipart component this is reponsible for the calendar it self.        |`calendar`, `months`                      |
-| CalendarMonth   | Responsible to style one month block.                                     |`month`, `name`, `week`, `weekday`, `days`|
-| CalendarDay     | Applies styles to individual day. This is the only single part component. | --                                       |
-| CalendarControl | Applies styles to prev and next months.                                   |`controls`, `button`                      |
+| Key name        | Description                                                               | Parts                                      |
+| --------------- | ------------------------------------------------------------------------- | ------------------------------------------ |
+| Calendar        | A multipart component this is reponsible for the calendar it self.        | `calendar`, `months`                       |
+| CalendarMonth   | Responsible to style one month block.                                     | `month`, `name`, `week`, `weekday`, `days` |
+| CalendarDay     | Applies styles to individual day. This is the only single part component. | --                                         |
+| CalendarControl | Applies styles to prev and next months.                                   | `controls`, `button`                       |
 
 ## License
 

@@ -22,9 +22,10 @@
   "scripts": {
     "dev": "preconstruct dev",
     "build": "preconstruct build",
-    "lint": "eslint ./src/** --max-warnings 0",
-    "fmt": "prettier --write .",
-    "fmt-check": "prettier --check .",
+    "lint": "eslint --cache ./src/** --max-warnings 0",
+    "prettier": "prettier . --ignore-path .gitignore --cache",
+    "fmt": "bun run prettier --write",
+    "fmt-check": "bun run prettier --check",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test": "jest",
