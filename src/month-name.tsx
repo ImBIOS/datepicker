@@ -1,6 +1,6 @@
-import * as React from 'react'
 import { Heading, useMultiStyleConfig } from '@chakra-ui/react'
 import { format as dateFormat } from 'date-fns'
+import * as React from 'react'
 import { CalendarContext } from './context'
 import { MonthContext } from './month'
 import { type CalendarMonthStyles } from './types'
@@ -17,10 +17,11 @@ export function CalendarMonthName({
   const { month } = React.useContext(MonthContext)
 
   const currentMonth = dates[Number(month)].startDateOfMonth
+  const text = dateFormat(currentMonth, format, { locale })
 
   return (
-    <Heading role="heading" sx={styles.name}>
-      {dateFormat(currentMonth, format, { locale })}
+    <Heading role="heading" aria-label={text} sx={styles.name}>
+      {text}
     </Heading>
   )
 }

@@ -1,4 +1,3 @@
-import * as React from 'react'
 import {
   eachDayOfInterval,
   endOfMonth,
@@ -8,6 +7,7 @@ import {
   isWeekend,
   startOfMonth,
 } from 'date-fns'
+import * as React from 'react'
 import { CalendarContext } from './context'
 import { MonthContext } from './month'
 import { type CalendarDate } from './types'
@@ -40,9 +40,13 @@ export function useCalendarDay() {
     variant = 'today'
   }
 
-  const isSelected =
-    (startSelectedDate && isSameDay(day, startSelectedDate)) ??
-    (endSelectedDate && isSameDay(day, endSelectedDate))
+  const isStartDateSelected = Boolean(
+    startSelectedDate && isSameDay(day, startSelectedDate)
+  )
+  const isEndDateSelected = Boolean(
+    endSelectedDate && isSameDay(day, endSelectedDate)
+  )
+  const isSelected = isStartDateSelected || isEndDateSelected
 
   if (isSelected) {
     variant = 'selected'
