@@ -119,3 +119,6 @@ dist
 
 # Storybook
 /storybook-static
+
+# Jest
+/.jest-cache
