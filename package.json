@@ -5,8 +5,14 @@
   "main": "dist/imbios-datepicker.cjs.js",
   "module": "dist/imbios-datepicker.esm.js",
   "types": "dist/imbios-datepicker.cjs.d.ts",
-  "repository": "git@github.com:ImBIOS/datepicker.git",
-  "author": "Wallace Oliveira <wallacebatistaoliveira@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ImBIOS/datepicker.git"
+  },
+  "author": {
+    "name": "Wallace Oliveira",
+    "email": "wallacebatistaoliveira@gmail.com"
+  },
   "contributors": [
     {
       "name": "Imamuzzaki Abu Salam",
@@ -62,6 +68,7 @@
     "@typescript-eslint/parser": "^6.21.0",
     "ajv": "^8.12.0",
     "all-contributors-cli": "^6.26.1",
+    "chromatic": "^10.9.3",
     "date-fns": "^3.3.1",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
@@ -84,5 +91,9 @@
     "framer-motion": "^7.6.14 || ^8 || ^9 || ^10 || ^11",
     "react": "^17.0.2 || ^18",
     "react-dom": "^17.0.2 || ^18"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/ImBIOS/datepicker/issues"
+  },
+  "homepage": "https://github.com/ImBIOS/datepicker#readme"
 }

@@ -1,46 +1,47 @@
-# Datepicker
+# Datepicker Component for Chakra-UI
 
+[![npm version](https://badge.fury.io/js/%40imbios%2Fdatepicker.svg)](https://badge.fury.io/js/%40imbios%2Fdatepicker)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
 [![All Contributors](https://img.shields.io/badge/all_contributors-10-orange.svg?style=flat-square)](#contributors-)
-
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-A simple datepicker component build with [date-fns][1] and [Chakra-UI][2].
+A powerful and simple-to-use datepicker component for web applications, built with [date-fns](https://date-fns.org/) for date management and styled using [Chakra-UI](https://chakra-ui.com/), a modular and accessible component library. This README provides all the necessary information to get started, customize the component, and contribute to its development.
 
 ## Table of Contents
 
-- [Datepicker](#datepicker)
+- [Datepicker Component for Chakra-UI](#datepicker-component-for-chakra-ui)
   - [Table of Contents](#table-of-contents)
   - [Prerequisites](#prerequisites)
   - [Installation and Usage](#installation-and-usage)
-    - [Customizing](#customizing)
-  - [Available components theme keys](#available-components-theme-keys)
+    - [Customizing the Datepicker](#customizing-the-datepicker)
+  - [Theming: Available Components Theme Keys](#theming-available-components-theme-keys)
   - [License](#license)
   - [Contributors ✨](#contributors-)
 
 ## Prerequisites
 
-You need to install [date-fns][1] and [chakra-ui][2] in order to use this library.
+To integrate the datepicker into your project, ensure you have [date-fns](https://date-fns.org/) and [Chakra-UI](https://chakra-ui.com/) installed. These libraries are essential for date management and UI styling, respectively.
 
 ```bash
 bun add date-fns
 ```
 
-To install chakra-ui follow their [guide here](https://chakra-ui.com/guides/first-steps#framework-guide).
+Follow the installation guide for Chakra-UI [here](https://chakra-ui.com/guides/first-steps#framework-guide) to complete the setup.
 
 ## Installation and Usage
 
-After install these dependencies you can now install the library and use this as below:
+Once the prerequisites are installed, add the datepicker component to your project using:
 
 ```bash
 bun add @imbios/datepicker
 ```
 
-Before to use this you can create your own theme or use the default one.
+Below is an example showcasing how to integrate the datepicker into your application, using Chakra-UI's provider for theming:
 
 ```tsx
-import { ChakraProvider } from '@chakra-ui/react'
+import { useState } from 'react';
+import { ChakraProvider } from '@chakra-ui/react';
 import {
   Calendar,
   CalendarDefaultTheme,
@@ -52,55 +53,47 @@ import {
   CalendarMonthName,
   CalendarWeek,
   CalendarDays,
-} from '@imbios/datepicker'
+} from '@imbios/datepicker';
 
 export function App() {
-  const [dates, setDates] = useState()
+  const [dates, setDates] = useState();
 
-  const handleSelectDate = (values) => setDates(values)
+  const handleSelectDate = (values) => setDates(values);
 
   return (
-    return (
-      <ChakraProvider theme={CalendarDefaultTheme}>
-        <Calendar value={dates} onSelectDate={handleSelectDate}>
-          <CalendarControls>
-            <CalendarPrevButton />
-            <CalendarNextButton />
-          </CalendarControls>
-
-          <CalendarMonths>
-            <CalendarMonth>
-              <CalendarMonthName />
-              <CalendarWeek />
-              <CalendarDays />
-            </CalendarMonth>
-          </CalendarMonths>
-        </Calendar>
-      </ChakraProvider>
-    )
-  )
+    <ChakraProvider theme={CalendarDefaultTheme}>
+      <Calendar value={dates} onSelectDate={handleSelectDate}>
+        <CalendarControls>
+          <CalendarPrevButton />
+          <CalendarNextButton />
+        </CalendarControls>
+        <CalendarMonths>
+          <CalendarMonth>
+            <CalendarMonthName />
+            <CalendarWeek />
+            <CalendarDays />
+          </CalendarMonth>
+        </CalendarMonths>
+      </Calendar>
+    </ChakraProvider>
+  );
 }
 ```
 
-> **note that the example above doens't render an input but only the calendar**
+Note: This example displays the calendar without an input field. For integration with inputs and popovers, refer to [this detailed example](https://uselessdev-datepicker.netlify.app/?path=/story/calendar--with-input-popover-start-end-dates).
 
-If you want to use this with inputs and a popover [you can see this example](https://uselessdev-datepicker.netlify.app/?path=/story/calendar--with-input-popover-start-end-dates)
+### Customizing the Datepicker
 
-### Customizing
-
-You can fully customize the Calendar component using the `extendTheme` provided by chakra-ui, you can see an example below.
-
-In your theme you can overrides the default theme (you can see all available components keys for theme customization here)
+Customize the Calendar component using Chakra-UI's `extendTheme` feature. Below is an example showing how to override the default theme:
 
 ```ts
-import { extendTheme } from '@chakra-ui/react'
-import { CalendarDefaultTheme } from '@imbios/datepicker'
+import { extendTheme } from '@chakra-ui/react';
+import { CalendarDefaultTheme } from '@imbios/datepicker';
 
 export const theme = extendTheme(CalendarDefaultTheme, {
   components: {
     Calendar: {
       parts: ['calendar'],
-
       baseStyle: {
         calendar: {
           borderWidth: '6px',
@@ -111,10 +104,8 @@ export const theme = extendTheme(CalendarDefaultTheme, {
         },
       },
     },
-
     CalendarControl: {
       parts: ['button'],
-
       baseStyle: {
         button: {
           h: 6,
@@ -123,11 +114,9 @@ export const theme = extendTheme(CalendarDefaultTheme, {
           fontSize: 'sm',
           color: 'white',
           bgColor: 'pink.400',
-
           _hover: {
             bgColor: 'pink.200',
           },
-
           _focus: {
             outline: 'none',
           },
@@ -135,25 +124,10 @@ export const theme = extendTheme(CalendarDefaultTheme, {
       },
     },
   },
-})
+});
 ```
 
-Now you can use this theme in `ChakraProvider`:
-
-```tsx
-import { ChakraProvider } from '@chakra-ui/react'
-import { theme } from './theme'
-
-function App() {
-  return <ChakraProvider theme={theme}>{/* children... */}</ChakraProvider>
-}
-```
-
-Theses changes will produce the following results in Calendar:
-
-![Customized calendar](docs/datepicker-custom.png)
-
-## Available components theme keys
+## Theming: Available Components Theme Keys
 
 | Key name        | Description                                                               | Parts                                      |
 | --------------- | ------------------------------------------------------------------------- | ------------------------------------------ |
@@ -164,10 +138,7 @@ Theses changes will produce the following results in Calendar:
 
 ## License
 
-This code is under the [Apache-2.0](LICENSE) License
-
-[1]: https://date-fns.org/
-[2]: https://chakra-ui.com/
+This project is licensed under the [Apache-2.0 License](LICENSE), allowing for wide use and contribution.
 
 ## Contributors ✨
 
@@ -200,4 +171,4 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome! -->
