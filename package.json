@@ -37,7 +37,8 @@
     "test": "jest",
     "type-check": "tsc --noEmit",
     "prepublish": "bun run build",
-    "up": "bunx npm-check-updates --interactive --format group --doctor --doctorTest \"bun run type-check && bun run build && bun run build-storybook && bun run test\" --doctorInstall \"bun install\""
+    "up": "bunx npm-check-updates --interactive --format group --doctor --doctorTest \"bun run type-check && bun run build && bun run build-storybook && bun run test\" --doctorInstall \"bun install\"",
+    "chromatic": "chromatic --exit-zero-on-changes"
   },
   "devDependencies": {
     "@babel/core": "^7.23.9",
