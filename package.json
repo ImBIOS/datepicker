@@ -67,7 +67,7 @@
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@types/jest": "^27.4.0",
-    "@types/react": "^17.0.34",
+    "@types/react": "^18.2.55",
     "@typescript-eslint/eslint-plugin": "^5.3.1",
     "@typescript-eslint/parser": "^5.3.1",
     "all-contributors-cli": "^6.20.0",
