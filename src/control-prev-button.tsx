@@ -1,7 +1,7 @@
 import { Button, useMultiStyleConfig } from '@chakra-ui/react'
 import { type ReactElement } from 'react'
 import { useCalendarContext } from './context'
-import { type CalendarControlStyles } from './types'
+import { type CalendarControlStyles } from './_types'
 
 type CalendarPrevButtonProps = {
   as?: ({ onClick }: { onClick: VoidFunction }) => ReactElement | null

@@ -2,7 +2,7 @@ import { Heading, useMultiStyleConfig } from '@chakra-ui/react'
 import { useContext } from 'react'
 import { useCalendarContext } from './context'
 import { MonthContext } from './month'
-import { type CalendarMonthStyles } from './types'
+import { type CalendarMonthStyles } from './_types'
 
 export type CalendarMonthNameProps = {
   format?: string

@@ -1,7 +1,7 @@
 import type { GridProps } from '@chakra-ui/react'
 import { Grid, useMultiStyleConfig } from '@chakra-ui/react'
 import { type PropsWithChildren } from 'react'
-import { type CalendarStyles } from './types'
+import { type CalendarStyles } from './_types'
 
 export type CalendarMonthsProps = PropsWithChildren<GridProps>
 

@@ -45,7 +45,9 @@ export type CalendarAdapterContextType<TDate, TLocale> = {
 }
 
 export const CalendarAdapterContext = createContext<CalendarAdapterContextType<
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   any,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   any
 > | null>(null)
 

@@ -1,5 +1,5 @@
 import { Grid, useMultiStyleConfig } from '@chakra-ui/react'
-import type { CalendarMonthStyles } from './types'
+import type { CalendarMonthStyles } from './_types'
 import { useCalendarContext } from './context'
 import { CalendarDay } from './day'
 import { MonthContext } from './month'

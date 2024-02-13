@@ -2,7 +2,7 @@ import { Flex, useMultiStyleConfig } from '@chakra-ui/react'
 import { useEffect, useRef, type PropsWithChildren } from 'react'
 import { useAdapter, type CalendarAdapter } from './adapters'
 import { CalendarContext } from './context'
-import { Target, type CalendarStyles } from './types'
+import { Target, type CalendarStyles } from './_types'
 import { useCalendar } from './useCalendar'
 
 export type CustomSelectHandler<TDate, TValue> = (
