@@ -5,10 +5,10 @@ const config = {
   // coverageReporters: ['html', 'json', 'text'],
   coverageThreshold: {
     global: {
-      statements: 91, // TODO: Increase this to 95
-      branches: 69, // TODO: Increase this to 95
-      functions: 74, // TODO: Increase this to 95
-      lines: 85, // TODO: Increase this to 95
+      statements: 89, // TODO: Increase this to 95
+      branches: 67, // TODO: Increase this to 95
+      functions: 73, // TODO: Increase this to 95
+      lines: 90, // TODO: Increase this to 95
     },
   },
 

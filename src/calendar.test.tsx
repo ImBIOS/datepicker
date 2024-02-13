@@ -301,11 +301,15 @@ test('should select a date', () => {
   const INPUT = screen.getByPlaceholderText(/select a date/i)
   fireEvent.click(INPUT)
 
-  const CALENDAR_HEADER = screen.getByRole('heading')
+  const CALENDAR_HEADER = screen.getByRole('heading', { hidden: true })
   expect(CALENDAR_HEADER).toHaveTextContent(CURRENT_CALENDAR_NAME)
 
   fireEvent.click(
-    screen.getByRole('button', { name: `${CURRENT_MONTH_NUMBER}-5` })
+    screen.getByRole('button', {
+      name: (_accessibleName, element) =>
+        element.getAttribute('aria-label') === `${CURRENT_MONTH_NUMBER}-5`,
+      hidden: true,
+    })
   )
   expect(INPUT).toHaveValue(`${CURRENT_MONTH_NUMBER}/05/${CURRENT_YEAR}`)
 
@@ -318,7 +322,7 @@ test('should change date in input', () => {
   const INPUT = screen.getByPlaceholderText(/select a date/i)
   fireEvent.click(INPUT)
 
-  const CALENDAR_HEADER = screen.getByRole('heading')
+  const CALENDAR_HEADER = screen.getByRole('heading', { hidden: true })
   expect(CALENDAR_HEADER).toHaveTextContent(CURRENT_CALENDAR_NAME)
 
   fireEvent.change(INPUT, { target: { value: '01/10/2022' } })
@@ -326,9 +330,9 @@ test('should change date in input', () => {
   fireEvent.click(INPUT)
 
   expect(INPUT).toHaveValue('01/10/2022')
-  expect(screen.getByRole('button', { current: 'date' })).toHaveTextContent(
-    '10'
-  )
+  expect(
+    screen.getByRole('button', { current: 'date', hidden: true })
+  ).toHaveTextContent('10')
 
   fireEvent.change(INPUT, { target: { value: '01/05/2022' } })
 
@@ -343,17 +347,27 @@ test('should select a range date interval', () => {
 
   fireEvent.click(START_INPUT)
 
-  const [HEADING_FIRST, HEADING_SECOND] = screen.getAllByRole('heading')
+  const [HEADING_FIRST, HEADING_SECOND] = screen.getAllByRole('heading', {
+    hidden: true,
+  })
 
   expect(HEADING_FIRST).toHaveTextContent(CURRENT_CALENDAR_NAME)
   expect(HEADING_SECOND).toHaveTextContent(NEXT_CALENDAR_NAME)
 
   fireEvent.click(
-    screen.getByRole('button', { name: `${CURRENT_MONTH_NUMBER}-5` })
+    screen.getByRole('button', {
+      name: (_accessibleName, element) =>
+        element.getAttribute('aria-label') === `${CURRENT_MONTH_NUMBER}-5`,
+      hidden: true,
+    })
   )
 
   fireEvent.click(
-    screen.getByRole('button', { name: `${NEXT_MONTH_NUMBER}-5` })
+    screen.getByRole('button', {
+      name: (_accessibleName, element) =>
+        element.getAttribute('aria-label') === `${NEXT_MONTH_NUMBER}-5`,
+      hidden: true,
+    })
   )
 
   expect(START_INPUT).toHaveValue(`${CURRENT_MONTH_NUMBER}/05/${CURRENT_YEAR}`)
@@ -371,7 +385,9 @@ test('should change a range date interval in input', () => {
 
   fireEvent.click(START_INPUT)
 
-  const [HEADING_FIRST, HEADING_SECOND] = screen.getAllByRole('heading')
+  const [HEADING_FIRST, HEADING_SECOND] = screen.getAllByRole('heading', {
+    hidden: true,
+  })
 
   expect(HEADING_FIRST).toHaveTextContent(CURRENT_CALENDAR_NAME)
   expect(HEADING_SECOND).toHaveTextContent(NEXT_CALENDAR_NAME)
@@ -387,6 +403,7 @@ test('should change a range date interval in input', () => {
 
   const [FIRST_SELECTED, SECOND_SELECTED] = screen.getAllByRole('button', {
     current: 'date',
+    hidden: true,
   })
 
   expect(FIRST_SELECTED).toHaveTextContent('10')
@@ -406,7 +423,9 @@ test('should change a range date interval end before start and start after end',
 
   fireEvent.click(START_INPUT)
 
-  const [HEADING_FIRST, HEADING_SECOND] = screen.getAllByRole('heading')
+  const [HEADING_FIRST, HEADING_SECOND] = screen.getAllByRole('heading', {
+    hidden: true,
+  })
 
   expect(HEADING_FIRST).toHaveTextContent(CURRENT_CALENDAR_NAME)
   expect(HEADING_SECOND).toHaveTextContent(NEXT_CALENDAR_NAME)
@@ -422,8 +441,16 @@ test('should change a range date interval end before start and start after end',
 
   expect(END_INPUT).toHaveFocus()
 
-  const FIRST_HEADING = screen.getByRole('heading', { name: 'January, 2022' })
-  const LAST_HEADING = screen.getByRole('heading', { name: 'February, 2022' })
+  const FIRST_HEADING = screen.getByRole('heading', {
+    name: (_accessibleName, element) =>
+      element.getAttribute('aria-label') === 'January, 2022',
+    hidden: true,
+  })
+  const LAST_HEADING = screen.getByRole('heading', {
+    name: (_accessibleName, element) =>
+      element.getAttribute('aria-label') === 'February, 2022',
+    hidden: true,
+  })
 
   fireEvent.change(END_INPUT, { target: { value: '01/05/2022' } })
   expect(START_INPUT).toHaveValue('')

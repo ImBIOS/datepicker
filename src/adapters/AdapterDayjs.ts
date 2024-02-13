@@ -5,7 +5,7 @@ import { type AdapterFormats, type CalendarAdapter } from './index'
 
 dayjs.extend(isoWeek)
 
-export const AdapterDayjs: CalendarAdapter<Dayjs, 'en'> = props => {
+export const AdapterDayjs: CalendarAdapter<Dayjs, string> = props => {
   const defaultFormats: AdapterFormats = {
     weekday: 'ddd',
     month: 'MMMM, YYYY',

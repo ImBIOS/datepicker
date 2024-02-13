@@ -1,6 +1,6 @@
 import { createContext, type PropsWithChildren, useContext } from 'react'
 
-type CalendarAdapterProps<TLocale> = {
+export type CalendarAdapterProps<TLocale> = {
   locale?: TLocale
   weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6
 }

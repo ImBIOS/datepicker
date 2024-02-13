@@ -1,8 +1,8 @@
 import { Heading, useMultiStyleConfig } from '@chakra-ui/react'
 import { useContext } from 'react'
+import { type CalendarMonthStyles } from './_types'
 import { useCalendarContext } from './context'
 import { MonthContext } from './month'
-import { type CalendarMonthStyles } from './_types'
 
 export type CalendarMonthNameProps = {
   format?: string
@@ -17,9 +17,11 @@ export function CalendarMonthName<TDate, TLocale>({
   const currentMonth =
     context.dates[Number(monthContext.month)].startDateOfMonth
 
+  const label = context.adapter.format(currentMonth, 'month', format)
+
   return (
-    <Heading sx={styles.name}>
-      {context.adapter.format(currentMonth, 'month', format)}
+    <Heading aria-label={label} sx={styles.name}>
+      {label}
     </Heading>
   )
 }
