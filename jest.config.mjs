@@ -5,14 +5,13 @@ const config = {
   // coverageReporters: ['html', 'json', 'text'],
   coverageThreshold: {
     global: {
-      statements: 89, // TODO: Increase this to 95
-      branches: 67, // TODO: Increase this to 95
-      functions: 73, // TODO: Increase this to 95
-      lines: 90, // TODO: Increase this to 95
+      statements: 91, // TODO: Increase this to 95
+      branches: 72, // TODO: Increase this to 95
+      functions: 83, // TODO: Increase this to 95
+      lines: 92, // TODO: Increase this to 95
     },
   },
 
-  preset: 'ts-jest',
   testEnvironment: 'jest-environment-jsdom',
   testPathIgnorePatterns: ['dist/'],
   collectCoverage: false,
@@ -21,6 +20,20 @@ const config = {
   snapshotSerializers: ['@emotion/jest/serializer'],
   moduleNameMapper: {
     renderer: '<rootDir>/.jest/with-theme.tsx',
+  },
+  transform: {
+    '^.+\\.(t|j)sx?$': [
+      '@swc/jest',
+      {
+        jsc: {
+          transform: {
+            react: {
+              runtime: 'automatic',
+            },
+          },
+        },
+      },
+    ],
   },
 }
 
