@@ -18,12 +18,7 @@ const config = {
     project: true,
   },
   plugins: ['react', '@typescript-eslint', 'react-hooks'],
-  extends: [
-    'plugin:@typescript-eslint/recommended-type-checked',
-    'plugin:@typescript-eslint/stylistic-type-checked',
-    'plugin:react/recommended',
-    'plugin:storybook/recommended',
-  ],
+  extends: ['plugin:@typescript-eslint/recommended-type-checked', 'plugin:@typescript-eslint/stylistic-type-checked', 'plugin:react/recommended', 'plugin:storybook/recommended', 'plugin:storybook/recommended'],
   rules: {
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',

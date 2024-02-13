@@ -1,5 +1,5 @@
 import { Button, useMultiStyleConfig } from '@chakra-ui/react'
-import { ReactElement } from 'react'
+import { type ReactElement } from 'react'
 import { useCalendarContext } from './context'
 import { type CalendarControlStyles } from './types'
 

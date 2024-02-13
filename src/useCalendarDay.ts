@@ -6,6 +6,7 @@ export type CalendarDayContextType<TDate> = {
   day: TDate
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const DayContext = createContext<CalendarDayContextType<any>>({
   day: null,
 })
@@ -22,11 +23,15 @@ export function useCalendarDay<TDate, TLocale>() {
     variant = 'today'
   }
 
-  const isSelected =
-    (context.startSelectedDate &&
-      context.adapter.isSameDay(dayContext.day, context.startSelectedDate)) ||
-    (context.endSelectedDate &&
-      context.adapter.isSameDay(dayContext.day, context.endSelectedDate))
+  const isStartDateSelected = Boolean(
+    context.startSelectedDate &&
+      context.adapter.isSameDay(dayContext.day, context.startSelectedDate)
+  )
+  const isEndDateSelected = Boolean(
+    context.endSelectedDate &&
+      context.adapter.isSameDay(dayContext.day, context.endSelectedDate)
+  )
+  const isSelected = isStartDateSelected || isEndDateSelected
 
   if (isSelected) {
     variant = 'selected'
@@ -71,15 +76,15 @@ export function useCalendarDay<TDate, TLocale>() {
         typeof context.disablePastDates !== 'boolean'
           ? context.disablePastDates
           : context.adapter.addDays(context.adapter.today, -1)
-      )) ||
+      )) ??
     (context.disableFutureDates &&
       context.adapter.isAfter(
         dayContext.day,
         typeof context.disableFutureDates !== 'boolean'
           ? context.disableFutureDates
           : context.adapter.today
-      )) ||
-    (context.disableWeekends && context.adapter.isWeekend(dayContext.day)) ||
+      )) ??
+    (context.disableWeekends && context.adapter.isWeekend(dayContext.day)) ??
     (context.disableDates &&
       context.disableDates.some(date =>
         context.adapter.isSameDay(dayContext.day, date)

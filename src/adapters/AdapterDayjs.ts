@@ -1,7 +1,8 @@
-import { AdapterFormats, CalendarAdapter } from './index'
-import dayjs, { Dayjs } from 'dayjs'
-import updateLocale from 'dayjs/plugin/updateLocale'
+import dayjs, { type Dayjs } from 'dayjs'
 import isoWeek from 'dayjs/plugin/isoWeek'
+import updateLocale from 'dayjs/plugin/updateLocale'
+import { type AdapterFormats, type CalendarAdapter } from './index'
+
 dayjs.extend(isoWeek)
 
 export const AdapterDayjs: CalendarAdapter<Dayjs, 'en'> = props => {
@@ -25,14 +26,14 @@ export const AdapterDayjs: CalendarAdapter<Dayjs, 'en'> = props => {
 
   if (props.weekStartsOn !== undefined) {
     dayjs.extend(updateLocale)
-    dayjs.updateLocale(props.locale || 'en', {
+    dayjs.updateLocale(props.locale ?? 'en', {
       weekStart: props.weekStartsOn,
     })
   }
 
   const localizedDayjs = props.locale
     ? (...args: Parameters<typeof dayjs>) =>
-        dayjs(...args).locale(props.locale || 'en')
+        dayjs(...args).locale(props.locale ?? 'en')
     : dayjs
 
   return {
@@ -73,7 +74,7 @@ export const AdapterDayjs: CalendarAdapter<Dayjs, 'en'> = props => {
       )
     },
     format: (value, formatKey, formatString) =>
-      localizedDayjs(value).format(formatString || defaultFormats[formatKey]),
+      localizedDayjs(value).format(formatString ?? defaultFormats[formatKey]),
     isBefore: (value, comparing) => value < comparing,
     isAfter: (value, comparing) => value > comparing,
     isSameDay: (value, comparing) => value.isSame(comparing, 'date'),

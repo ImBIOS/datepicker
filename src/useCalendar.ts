@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { CalendarAdapter } from './adapters'
+import { type CalendarAdapter } from './adapters'
 
 export type UseCalendarProps<TDate, TLocale> = {
   start: TDate

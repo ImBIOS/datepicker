@@ -84,7 +84,7 @@ out
 
 # Nuxt.js build / generate output
 .nuxt
-dist
+dist/
 
 # Gatsby files
 .cache/
@@ -123,7 +123,7 @@ dist
 .idea
 
 # Storybook
-/storybook-static
+storybook-static/
 
 # Jest
-/.jest-cache
+.jest-cache/

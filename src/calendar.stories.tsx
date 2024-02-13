@@ -1,5 +1,3 @@
-import * as React from 'react'
-import { Meta, StoryFn } from '@storybook/react'
 import {
   Box,
   Button,
@@ -11,34 +9,36 @@ import {
   PopoverContent,
   PopoverTrigger,
   Text,
+  VStack,
   useDisclosure,
   useOutsideClick,
-  VStack,
 } from '@chakra-ui/react'
+import { type Meta, type StoryFn } from '@storybook/react'
+import { addDays, format, isAfter, isBefore, isValid, subDays } from 'date-fns'
 import * as locales from 'date-fns/locale'
-import { Dayjs } from 'dayjs'
+import { type Dayjs } from 'dayjs'
 import 'dayjs/locale/ru'
-import { subDays, addDays, isValid, format, isAfter, isBefore } from 'date-fns'
+import * as React from 'react'
 
 import {
   Calendar,
-  CalendarDateRange,
-  CalendarMonth,
-  CalendarDays,
-  CalendarMonthName,
-  CalendarWeek,
-  CalendarMonths,
+  CalendarAdapterProvider,
   CalendarControls,
+  CalendarDays,
+  CalendarMonth,
+  CalendarMonthName,
+  CalendarMonths,
   CalendarNextButton,
   CalendarPrevButton,
-  CalendarAdapterProvider,
-  CalendarSingleDate,
-  useCalendarDay,
+  CalendarWeek,
   Target,
+  useCalendarDay,
+  type CalendarDateRange,
+  type CalendarSingleDate,
   type CustomSelectHandler,
-} from '../src'
-import { AdapterDayjs } from '../src/adapters/AdapterDayjs'
-import { AdapterDateFns } from '../src/adapters/AdapterDateFns'
+} from '.'
+import { AdapterDateFns } from './adapters/AdapterDateFns'
+import { AdapterDayjs } from './adapters/AdapterDayjs'
 
 export default {
   title: 'calendar',
@@ -447,7 +447,7 @@ export const WithInputPopover: StoryFn<typeof Calendar> = () => {
 
   const handleSelectDate = (date: CalendarSingleDate<Date>) => {
     setDate(date)
-    setValue(() => (isValid(date) ? format(date, 'MM/dd/yyyy') : ''))
+    setValue(() => (isValid(date) ? format(date!, 'MM/dd/yyyy') : ''))
     onClose()
   }
 
@@ -552,10 +552,8 @@ export const WithInputPopoverStartEndDates: StoryFn<typeof Calendar> = () => {
     setDates(dates)
 
     setValues({
-      start: isValid(dates.start)
-        ? format(dates.start as Date, 'MM/dd/yyyy')
-        : '',
-      end: isValid(dates.end) ? format(dates.end as Date, 'MM/dd/yyyy') : '',
+      start: isValid(dates.start) ? format(dates.start!, 'MM/dd/yyyy') : '',
+      end: isValid(dates.end) ? format(dates.end!, 'MM/dd/yyyy') : '',
     })
 
     if (dates.end) {
@@ -831,7 +829,10 @@ export const WeekSelection: StoryFn<typeof Calendar> = () => {
 }
 
 function CustomDay() {
-  const { day, onSelectDates, isSelected, isInRange } = useCalendarDay<Date>()
+  const { day, onSelectDates, isSelected, isInRange } = useCalendarDay<
+    Date,
+    void
+  >()
 
   const selected = isSelected
     ? {
@@ -938,7 +939,7 @@ export const WithCustomHandler: StoryFn<typeof Calendar> = () => {
     Dayjs,
     CalendarDateRange<Dayjs>
   > = (date, { onSelectDate, currentValue, adapter, target, changeTarget }) => {
-    if (target === Target.END && adapter.isAfter(date, currentValue.start)) {
+    if (target === Target.END && adapter.isAfter(date, currentValue.start!)) {
       changeTarget(Target.START)
       return onSelectDate({ start: currentValue.start, end: date })
     }

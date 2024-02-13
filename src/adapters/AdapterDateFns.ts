@@ -1,25 +1,28 @@
-import { CalendarAdapter } from './index'
 import {
   addDays,
   addMonths,
-  startOfMonth,
+  differenceInCalendarMonths,
+  eachDayOfInterval,
+  endOfMonth,
+  endOfWeek,
+  format,
+  isAfter,
+  isBefore,
+  isSameDay,
   isSameMonth,
   isValid,
-  endOfMonth,
-  format,
-  startOfWeek,
-  endOfWeek,
-  isBefore,
-  isAfter,
-  isSameDay,
   isWeekend,
-  eachDayOfInterval,
-  differenceInCalendarMonths,
+  startOfMonth,
+  startOfWeek,
 } from 'date-fns'
+import { type CalendarAdapter } from './index'
 
-import enUS from 'date-fns/locale/en-US'
+import localeEnUS from 'date-fns/locale/en-US'
 
-export const AdapterDateFns: CalendarAdapter<Date, typeof enUS> = props => {
+export const AdapterDateFns: CalendarAdapter<
+  Date,
+  (typeof localeEnUS)['enUS']
+> = props => {
   const defaultFormats = {
     weekday: 'E',
     month: 'MMMM, yyyy',
@@ -27,8 +30,8 @@ export const AdapterDateFns: CalendarAdapter<Date, typeof enUS> = props => {
     day: 'd',
   }
 
-  const locale = props.locale || enUS
-  const weekStartsOn = props.weekStartsOn || locale.options?.weekStartsOn
+  const locale = props.locale ?? localeEnUS.enUS
+  const weekStartsOn = props.weekStartsOn ?? locale.options?.weekStartsOn
 
   return {
     defaultFormats,
@@ -53,7 +56,7 @@ export const AdapterDateFns: CalendarAdapter<Date, typeof enUS> = props => {
       )
     },
     format: (value, formatKey, formatString) =>
-      format(value, formatString || defaultFormats[formatKey], {
+      format(value, formatString ?? defaultFormats[formatKey], {
         locale,
         weekStartsOn,
       }),
