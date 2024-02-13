@@ -8,6 +8,12 @@ describe('AdapterDateFns', () => {
     weekStartsOn: 0, // Sunday
   })
 
+  describe('Timezones', () => {
+    it('should always be UTC', () => {
+      expect(new Date().getTimezoneOffset()).toBe(0)
+    })
+  })
+
   describe('isValid', () => {
     it('should validate valid date', () => {
       expect(adapter.isValid(new Date())).toBeTruthy()
@@ -76,7 +82,7 @@ describe('AdapterDateFns', () => {
     test('endOfMonth finds the last day of the month', () => {
       const date = new Date('2020-02-01T00:00:00.000Z') // February 10, 2020
       const endOfMonthDate = adapter.endOfMonth(date) // February 29, 2020 (leap year)
-      expect(endOfMonthDate).toEqual(new Date('2020-02-29T16:59:59.999Z'))
+      expect(endOfMonthDate).toEqual(new Date('2020-02-29T23:59:59.999Z'))
     })
   })
 

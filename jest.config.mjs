@@ -17,6 +17,7 @@ const config = {
   collectCoverage: false,
   collectCoverageFrom: ['src/**/*.(ts|tsx)', '!src/**/*.stories.(ts|tsx)'],
   setupFilesAfterEnv: ['<rootDir>/.jest/setup.ts'],
+  globalSetup: '<rootDir>/.jest/global-setup.ts',
   snapshotSerializers: ['@emotion/jest/serializer'],
   moduleNameMapper: {
     renderer: '<rootDir>/.jest/with-theme.tsx',
