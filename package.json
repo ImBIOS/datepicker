@@ -21,6 +21,10 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "scripts": {
     "lint": "eslint --cache ./src/** --max-warnings 0",
     "prettier": "prettier . --ignore-path .gitignore --cache",
@@ -40,6 +44,7 @@
     "@chakra-ui/icons": "^2.1.1",
     "@chakra-ui/react": "^2.8.2",
     "@chakra-ui/storybook-addon": "^5.1.0",
+    "@changesets/cli": "^2.27.1",
     "@emotion/jest": "^11.11.0",
     "@emotion/react": "11.11.3",
     "@emotion/styled": "11.11.0",

@@ -8,9 +8,12 @@ dayjs.extend(isoWeek)
 export const AdapterDayjs: CalendarAdapter<Dayjs, string> = props => {
   const defaultFormats: AdapterFormats = {
     weekday: 'ddd',
-    month: 'MMMM, YYYY',
+    month: 'MMMM',
+    shortMonth: 'MMM',
+    monthYear: 'MMMM, YYYY',
     monthDay: 'MM-D',
     day: 'D',
+    year: 'YYYY',
   }
 
   if (props.locale) {
@@ -48,6 +51,8 @@ export const AdapterDayjs: CalendarAdapter<Dayjs, string> = props => {
       amount < 0
         ? value.subtract(Math.abs(amount), 'day')
         : value.add(amount, 'day'),
+    startOfYear: value => localizedDayjs(value).startOf('year'),
+    endOfYear: value => localizedDayjs(value).endOf('year'),
     startOfMonth: value => localizedDayjs(value).startOf('month'),
     endOfMonth: value => localizedDayjs(value).endOf('month'),
     startOfWeek: value => localizedDayjs(value).startOf('week'),
@@ -65,12 +70,33 @@ export const AdapterDayjs: CalendarAdapter<Dayjs, string> = props => {
         localizedDayjs(start).add(i, 'days')
       )
     },
+    monthsInRange: (start, end) => {
+      if (start > end) {
+        throw new Error('Invalid interval')
+      }
+
+      const startOfInterval = start.startOf('month')
+      const endOfInterval = end.endOf('month')
+      const diff = Math.ceil(
+        endOfInterval.diff(startOfInterval, 'months', true)
+      )
+
+      return Array.from({ length: diff + 1 }, (_, i) =>
+        localizedDayjs(start).add(i, 'months')
+      )
+    },
     removeOutMonthDays: (days, date) =>
       days.map(d => (d.isSame(date, 'month') ? d : null)),
     weekdays: (formatString = defaultFormats.weekday) => {
       const start = localizedDayjs().startOf('week')
       return Array.from({ length: 7 }, (_, i) =>
         start.add(i, 'days').format(formatString)
+      )
+    },
+    quarters: (formatString = defaultFormats.month) => {
+      const start = localizedDayjs().startOf('month')
+      return Array.from({ length: 3 }, (_, i) =>
+        start.add(i * 3, 'month').format(formatString)
       )
     },
     format: (value, formatKey, formatString) =>

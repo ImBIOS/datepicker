@@ -1,7 +1,7 @@
 import { Button, useMultiStyleConfig } from '@chakra-ui/react'
 import { type ReactElement } from 'react'
-import { useCalendarContext } from './context'
 import { type CalendarControlStyles } from './_types'
+import { useCalendarContext } from './context'
 
 type CalendarPrevButtonProps = {
   as?: ({ onClick }: { onClick: VoidFunction }) => ReactElement | null
@@ -17,11 +17,29 @@ export function CalendarPrevButton<TDate, TLocale>({
   const context = useCalendarContext<TDate, TLocale>()
 
   if (as) {
-    return as({ onClick: context.prevMonth })
+    switch (context.mode) {
+      case 'day':
+        return as({ onClick: context.prevMonth })
+      case 'month':
+        return as({ onClick: context.prevYear })
+      default:
+    }
+  }
+
+  const handleClick = () => {
+    switch (context.mode) {
+      case 'day':
+        context.prevMonth()
+        break
+      case 'month':
+        context.prevYear()
+        break
+      default:
+    }
   }
 
   return (
-    <Button onClick={context.prevMonth} sx={styles.button}>
+    <Button onClick={handleClick} sx={styles.button}>
       &#8592;
     </Button>
   )

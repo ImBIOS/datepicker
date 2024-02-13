@@ -15,14 +15,14 @@ import * as React from 'react'
 import {
   Calendar,
   CalendarAdapterProvider,
+  CalendarBody,
+  CalendarBodyWrapper,
   CalendarControls,
-  CalendarDays,
-  CalendarMonth,
-  CalendarMonthName,
-  CalendarMonths,
+  CalendarHeading,
   CalendarNextButton,
+  CalendarPicker,
   CalendarPrevButton,
-  CalendarWeek,
+  CalendarTopRow,
   type CalendarDateRange,
   type CalendarSingleDate,
 } from '.'
@@ -109,13 +109,13 @@ function CalendarBasic() {
                   <CalendarNextButton />
                 </CalendarControls>
 
-                <CalendarMonths>
-                  <CalendarMonth>
-                    <CalendarMonthName />
-                    <CalendarWeek />
-                    <CalendarDays />
-                  </CalendarMonth>
-                </CalendarMonths>
+                <CalendarBodyWrapper>
+                  <CalendarBody>
+                    <CalendarHeading />
+                    <CalendarTopRow />
+                    <CalendarPicker />
+                  </CalendarBody>
+                </CalendarBodyWrapper>
               </PopoverBody>
             </Calendar>
           </PopoverContent>
@@ -268,15 +268,15 @@ function CalendarRange() {
                   <CalendarNextButton />
                 </CalendarControls>
 
-                <CalendarMonths>
+                <CalendarBodyWrapper>
                   {Array.from({ length: MONTHS }, (_, month) => (
-                    <CalendarMonth key={month} month={month}>
-                      <CalendarMonthName />
-                      <CalendarWeek />
-                      <CalendarDays />
-                    </CalendarMonth>
+                    <CalendarBody key={month} month={month}>
+                      <CalendarHeading />
+                      <CalendarTopRow />
+                      <CalendarPicker />
+                    </CalendarBody>
                   ))}
-                </CalendarMonths>
+                </CalendarBodyWrapper>
               </PopoverBody>
             </Calendar>
           </PopoverContent>

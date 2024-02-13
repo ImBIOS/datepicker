@@ -20,6 +20,7 @@ export const mockCalendarAdapter: CalendarAdapter<unknown, unknown> = (
   daysInRange: jest.fn(),
   removeOutMonthDays: jest.fn(),
   weekdays: jest.fn(),
+  quarters: jest.fn(),
   format: jest.fn(),
   isBefore: jest.fn(),
   isAfter: jest.fn(),

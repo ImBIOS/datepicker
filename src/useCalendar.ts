@@ -31,6 +31,8 @@ export function useCalendar<TDate, TLocale>({
     function actionsFn() {
       const nextMonth = () => setDate(prevSet => adapter.addMonths(prevSet, 1))
       const prevMonth = () => setDate(prevSet => adapter.addMonths(prevSet, -1))
+      const nextYear = () => setDate(prevSet => adapter.addMonths(prevSet, 12))
+      const prevYear = () => setDate(prevSet => adapter.addMonths(prevSet, -12))
       const resetDate = () => setDate(initialState)
 
       const dates = Array.from({ length: months }, (_, i) => {
@@ -42,6 +44,12 @@ export function useCalendar<TDate, TLocale>({
         const endWeek = adapter.endOfWeek(endDateOfMonth)
         const days = adapter.daysInRange(startWeek, endWeek)
 
+        const startDateOfYear = adapter.startOfYear(month)
+        const endDateOfYear = adapter.endOfYear(month)
+        const startMonth = adapter.startOfMonth(startDateOfYear)
+        const endMonth = adapter.endOfMonth(endDateOfYear)
+        const months = adapter.monthsInRange(startMonth, endMonth)
+
         return {
           startDateOfMonth,
           endDateOfMonth,
@@ -50,12 +58,15 @@ export function useCalendar<TDate, TLocale>({
           days: allowOutsideDays
             ? days
             : adapter.removeOutMonthDays(days, month),
+          months,
         }
       })
 
       return {
         nextMonth,
         prevMonth,
+        nextYear,
+        prevYear,
         resetDate,
         dates,
       }

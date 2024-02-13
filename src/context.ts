@@ -5,12 +5,17 @@ export type CalendarContextType<TDate, TLocale> = {
   dates: {
     startDateOfMonth: TDate
     endDateOfMonth: TDate
+    startDateOfYear: TDate
+    endDateOfYear: TDate
     startWeek: TDate
     endWeek: TDate
     days: (TDate | null)[]
+    months: (TDate | null)[]
   }[]
   nextMonth: VoidFunction
   prevMonth: VoidFunction
+  nextYear: VoidFunction
+  prevYear: VoidFunction
   onSelectDates: (date: TDate) => void
   startSelectedDate?: TDate
   endSelectedDate?: TDate
@@ -24,6 +29,8 @@ export type CalendarContextType<TDate, TLocale> = {
   weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6
   highlightToday?: boolean
   adapter: ReturnType<CalendarAdapter<TDate, TLocale>>
+  mode: 'day' | 'month' // TODO: Add 'year' and 'decade' mode
+  setMode: (mode: 'day' | 'month') => void
 }
 
 export const CalendarContext = createContext<CalendarContextType<

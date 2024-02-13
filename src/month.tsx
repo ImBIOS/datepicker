@@ -1,23 +1,32 @@
-import { Box, useMultiStyleConfig } from '@chakra-ui/react'
-import { type PropsWithChildren, createContext } from 'react'
-import { type CalendarMonthStyles } from './_types'
+import { Button, useStyleConfig, type ButtonProps } from '@chakra-ui/react'
+import { type PropsWithChildren } from 'react'
+import { useCalendarContext } from './context'
+import { useCalendarMonth } from './useCalendarMonth'
 
-export type CalendarMonthProps = PropsWithChildren<{ month?: number }>
+export type CalendarMonthProps = PropsWithChildren<ButtonProps>
 
-type MonthContextType = {
-  month?: number
-}
+export function CalendarMonth<TDate, TLocale>({
+  children,
+  ...props
+}: CalendarMonthProps) {
+  const context = useCalendarContext<TDate, TLocale>()
 
-export const MonthContext = createContext<MonthContextType>({
-  month: 0,
-})
+  const { month, interval, variant, isDisabled, onSelectDates } =
+    useCalendarMonth<TDate, TLocale>()
+  const styles = useStyleConfig('CalendarMonth', { variant, interval })
 
-export function CalendarMonth({ children, month = 0 }: CalendarMonthProps) {
-  const styles = useMultiStyleConfig('CalendarMonth', {}) as CalendarMonthStyles
+  console.log('isDisabled', isDisabled)
 
   return (
-    <MonthContext.Provider value={{ month }}>
-      <Box sx={styles.month}>{children}</Box>
-    </MonthContext.Provider>
+    <Button
+      aria-current={variant === 'selected' ? 'date' : false}
+      aria-label={context.adapter.format(month, 'shortMonth')}
+      onClick={() => onSelectDates(month)}
+      isDisabled={isDisabled}
+      sx={{ ...styles, ...props }}
+      {...props}
+    >
+      {children ?? context.adapter.format(month, 'shortMonth')}
+    </Button>
   )
 }

@@ -28,6 +28,7 @@ describe('CalendarContext', () => {
           startWeek: new Date(),
           endWeek: new Date(),
           days: [new Date(), null],
+          months: [new Date(), null],
         },
       ],
       nextMonth: jest.fn(),
@@ -46,6 +47,8 @@ describe('CalendarContext', () => {
       highlightToday: true,
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
       adapter: jest.fn() as any, // Mock implementation or type casting as needed
+      mode: 'day',
+      setMode: jest.fn(),
     }
 
     const wrapper = ({ children }: { children: React.ReactNode }) => (

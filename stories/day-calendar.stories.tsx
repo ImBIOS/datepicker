@@ -23,25 +23,25 @@ import * as React from 'react'
 import {
   Calendar,
   CalendarAdapterProvider,
+  CalendarBody,
+  CalendarBodyWrapper,
   CalendarControls,
-  CalendarDays,
-  CalendarMonth,
-  CalendarMonthName,
-  CalendarMonths,
+  CalendarHeading,
   CalendarNextButton,
+  CalendarPicker,
   CalendarPrevButton,
-  CalendarWeek,
+  CalendarTopRow,
   Target,
   useCalendarDay,
   type CalendarDateRange,
   type CalendarSingleDate,
   type CustomSelectHandler,
-} from '.'
-import { AdapterDateFns } from './adapters/AdapterDateFns'
-import { AdapterDayjs } from './adapters/AdapterDayjs'
+} from '../src'
+import { AdapterDateFns } from '../src/adapters/AdapterDateFns'
+import { AdapterDayjs } from '../src/adapters/AdapterDayjs'
 
 export default {
-  title: 'Calendar',
+  title: 'Day Calendar',
   component: Calendar,
 } as Meta<typeof Calendar>
 
@@ -58,13 +58,13 @@ export const Basic: StoryFn<typeof Calendar> = () => {
           <CalendarNextButton />
         </CalendarControls>
 
-        <CalendarMonths>
-          <CalendarMonth>
-            <CalendarMonthName />
-            <CalendarWeek />
-            <CalendarDays />
-          </CalendarMonth>
-        </CalendarMonths>
+        <CalendarBodyWrapper>
+          <CalendarBody>
+            <CalendarHeading />
+            <CalendarTopRow />
+            <CalendarPicker />
+          </CalendarBody>
+        </CalendarBodyWrapper>
       </Calendar>
     </CalendarAdapterProvider>
   )
@@ -83,13 +83,13 @@ export const WithDayjsAdapter: StoryFn<typeof Calendar> = () => {
           <CalendarNextButton />
         </CalendarControls>
 
-        <CalendarMonths>
-          <CalendarMonth>
-            <CalendarMonthName />
-            <CalendarWeek />
-            <CalendarDays />
-          </CalendarMonth>
-        </CalendarMonths>
+        <CalendarBodyWrapper>
+          <CalendarBody>
+            <CalendarHeading />
+            <CalendarTopRow />
+            <CalendarPicker />
+          </CalendarBody>
+        </CalendarBodyWrapper>
       </Calendar>
     </CalendarAdapterProvider>
   )
@@ -113,13 +113,13 @@ export const CustomLocale: StoryFn<typeof Calendar> = ({ locale }) => {
           <CalendarNextButton />
         </CalendarControls>
 
-        <CalendarMonths>
-          <CalendarMonth>
-            <CalendarMonthName />
-            <CalendarWeek />
-            <CalendarDays />
-          </CalendarMonth>
-        </CalendarMonths>
+        <CalendarBodyWrapper>
+          <CalendarBody>
+            <CalendarHeading />
+            <CalendarTopRow />
+            <CalendarPicker />
+          </CalendarBody>
+        </CalendarBodyWrapper>
       </Calendar>
     </CalendarAdapterProvider>
   )
@@ -151,13 +151,13 @@ export const DisablePastDates: StoryFn<typeof Calendar> = () => {
           <CalendarNextButton />
         </CalendarControls>
 
-        <CalendarMonths>
-          <CalendarMonth>
-            <CalendarMonthName />
-            <CalendarWeek />
-            <CalendarDays />
-          </CalendarMonth>
-        </CalendarMonths>
+        <CalendarBodyWrapper>
+          <CalendarBody>
+            <CalendarHeading />
+            <CalendarTopRow />
+            <CalendarPicker />
+          </CalendarBody>
+        </CalendarBodyWrapper>
       </Calendar>
     </CalendarAdapterProvider>
   )
@@ -180,13 +180,13 @@ export const DisablePastDatesFrom: StoryFn<typeof Calendar> = () => {
           <CalendarNextButton />
         </CalendarControls>
 
-        <CalendarMonths>
-          <CalendarMonth>
-            <CalendarMonthName />
-            <CalendarWeek />
-            <CalendarDays />
-          </CalendarMonth>
-        </CalendarMonths>
+        <CalendarBodyWrapper>
+          <CalendarBody>
+            <CalendarHeading />
+            <CalendarTopRow />
+            <CalendarPicker />
+          </CalendarBody>
+        </CalendarBodyWrapper>
       </Calendar>
     </CalendarAdapterProvider>
   )
@@ -209,13 +209,13 @@ export const DisableFutureDates: StoryFn<typeof Calendar> = () => {
           <CalendarNextButton />
         </CalendarControls>
 
-        <CalendarMonths>
-          <CalendarMonth>
-            <CalendarMonthName />
-            <CalendarWeek />
-            <CalendarDays />
-          </CalendarMonth>
-        </CalendarMonths>
+        <CalendarBodyWrapper>
+          <CalendarBody>
+            <CalendarHeading />
+            <CalendarTopRow />
+            <CalendarPicker />
+          </CalendarBody>
+        </CalendarBodyWrapper>
       </Calendar>
     </CalendarAdapterProvider>
   )
@@ -238,13 +238,13 @@ export const DisableFutureDatesFrom: StoryFn<typeof Calendar> = () => {
           <CalendarNextButton />
         </CalendarControls>
 
-        <CalendarMonths>
-          <CalendarMonth>
-            <CalendarMonthName />
-            <CalendarWeek />
-            <CalendarDays />
-          </CalendarMonth>
-        </CalendarMonths>
+        <CalendarBodyWrapper>
+          <CalendarBody>
+            <CalendarHeading />
+            <CalendarTopRow />
+            <CalendarPicker />
+          </CalendarBody>
+        </CalendarBodyWrapper>
       </Calendar>
     </CalendarAdapterProvider>
   )
@@ -276,13 +276,13 @@ export const DisableDates: StoryFn<typeof Calendar> = () => {
           <CalendarNextButton />
         </CalendarControls>
 
-        <CalendarMonths>
-          <CalendarMonth>
-            <CalendarMonthName />
-            <CalendarWeek />
-            <CalendarDays />
-          </CalendarMonth>
-        </CalendarMonths>
+        <CalendarBodyWrapper>
+          <CalendarBody>
+            <CalendarHeading />
+            <CalendarTopRow />
+            <CalendarPicker />
+          </CalendarBody>
+        </CalendarBodyWrapper>
       </Calendar>
     </CalendarAdapterProvider>
   )
@@ -301,13 +301,13 @@ export const DisableWeekends: StoryFn<typeof Calendar> = () => {
           <CalendarNextButton />
         </CalendarControls>
 
-        <CalendarMonths>
-          <CalendarMonth>
-            <CalendarMonthName />
-            <CalendarWeek />
-            <CalendarDays />
-          </CalendarMonth>
-        </CalendarMonths>
+        <CalendarBodyWrapper>
+          <CalendarBody>
+            <CalendarHeading />
+            <CalendarTopRow />
+            <CalendarPicker />
+          </CalendarBody>
+        </CalendarBodyWrapper>
       </Calendar>
     </CalendarAdapterProvider>
   )
@@ -326,13 +326,13 @@ export const AllowOutsideDays: StoryFn<typeof Calendar> = () => {
           <CalendarNextButton />
         </CalendarControls>
 
-        <CalendarMonths>
-          <CalendarMonth>
-            <CalendarMonthName />
-            <CalendarWeek />
-            <CalendarDays />
-          </CalendarMonth>
-        </CalendarMonths>
+        <CalendarBodyWrapper>
+          <CalendarBody>
+            <CalendarHeading />
+            <CalendarTopRow />
+            <CalendarPicker />
+          </CalendarBody>
+        </CalendarBodyWrapper>
       </Calendar>
     </CalendarAdapterProvider>
   )
@@ -355,13 +355,13 @@ export const SingleDateSelection: StoryFn<typeof Calendar> = () => {
           <CalendarNextButton />
         </CalendarControls>
 
-        <CalendarMonths>
-          <CalendarMonth>
-            <CalendarMonthName />
-            <CalendarWeek />
-            <CalendarDays />
-          </CalendarMonth>
-        </CalendarMonths>
+        <CalendarBodyWrapper>
+          <CalendarBody>
+            <CalendarHeading />
+            <CalendarTopRow />
+            <CalendarPicker />
+          </CalendarBody>
+        </CalendarBodyWrapper>
       </Calendar>
     </CalendarAdapterProvider>
   )
@@ -396,13 +396,13 @@ export const CustomControlButtons: StoryFn<typeof Calendar> = () => {
           />
         </CalendarControls>
 
-        <CalendarMonths>
-          <CalendarMonth>
-            <CalendarMonthName />
-            <CalendarWeek />
-            <CalendarDays />
-          </CalendarMonth>
-        </CalendarMonths>
+        <CalendarBodyWrapper>
+          <CalendarBody>
+            <CalendarHeading />
+            <CalendarTopRow />
+            <CalendarPicker />
+          </CalendarBody>
+        </CalendarBodyWrapper>
       </Calendar>
     </CalendarAdapterProvider>
   )
@@ -422,15 +422,15 @@ export const WithMultipleMonths: StoryFn<typeof Calendar> = () => {
           <CalendarNextButton />
         </CalendarControls>
 
-        <CalendarMonths>
+        <CalendarBodyWrapper>
           {Array.from({ length: MONTHS }, (_, month) => (
-            <CalendarMonth month={month} key={month}>
-              <CalendarMonthName />
-              <CalendarWeek />
-              <CalendarDays />
-            </CalendarMonth>
+            <CalendarBody month={month} key={month}>
+              <CalendarHeading />
+              <CalendarTopRow />
+              <CalendarPicker />
+            </CalendarBody>
           ))}
-        </CalendarMonths>
+        </CalendarBodyWrapper>
       </Calendar>
     </CalendarAdapterProvider>
   )
@@ -516,13 +516,13 @@ export const WithInputPopover: StoryFn<typeof Calendar> = () => {
                   <CalendarNextButton />
                 </CalendarControls>
 
-                <CalendarMonths>
-                  <CalendarMonth>
-                    <CalendarMonthName />
-                    <CalendarWeek />
-                    <CalendarDays />
-                  </CalendarMonth>
-                </CalendarMonths>
+                <CalendarBodyWrapper>
+                  <CalendarBody>
+                    <CalendarHeading />
+                    <CalendarTopRow />
+                    <CalendarPicker />
+                  </CalendarBody>
+                </CalendarBodyWrapper>
               </PopoverBody>
             </Calendar>
           </PopoverContent>
@@ -675,15 +675,15 @@ export const WithInputPopoverStartEndDates: StoryFn<typeof Calendar> = () => {
                   <CalendarNextButton />
                 </CalendarControls>
 
-                <CalendarMonths>
+                <CalendarBodyWrapper>
                   {Array.from({ length: MONTHS }, (_, month) => (
-                    <CalendarMonth key={month} month={month}>
-                      <CalendarMonthName />
-                      <CalendarWeek />
-                      <CalendarDays />
-                    </CalendarMonth>
+                    <CalendarBody key={month} month={month}>
+                      <CalendarHeading />
+                      <CalendarTopRow />
+                      <CalendarPicker />
+                    </CalendarBody>
                   ))}
-                </CalendarMonths>
+                </CalendarBodyWrapper>
               </PopoverBody>
             </Calendar>
           </PopoverContent>
@@ -721,13 +721,13 @@ export const CustomContent: StoryFn<typeof Calendar> = () => {
             <CalendarNextButton />
           </CalendarControls>
 
-          <CalendarMonths>
-            <CalendarMonth>
-              <CalendarMonthName />
-              <CalendarWeek />
-              <CalendarDays />
-            </CalendarMonth>
-          </CalendarMonths>
+          <CalendarBodyWrapper>
+            <CalendarBody>
+              <CalendarHeading />
+              <CalendarTopRow />
+              <CalendarPicker />
+            </CalendarBody>
+          </CalendarBodyWrapper>
         </Box>
 
         <VStack
@@ -764,13 +764,13 @@ export const StartWeekDay: StoryFn<typeof Calendar> = () => {
           <CalendarNextButton />
         </CalendarControls>
 
-        <CalendarMonths>
-          <CalendarMonth>
-            <CalendarMonthName />
-            <CalendarWeek />
-            <CalendarDays />
-          </CalendarMonth>
-        </CalendarMonths>
+        <CalendarBodyWrapper>
+          <CalendarBody>
+            <CalendarHeading />
+            <CalendarTopRow />
+            <CalendarPicker />
+          </CalendarBody>
+        </CalendarBodyWrapper>
       </Calendar>
     </CalendarAdapterProvider>
   )
@@ -788,13 +788,13 @@ export const HighlightToday: StoryFn<typeof Calendar> = () => {
           <CalendarNextButton />
         </CalendarControls>
 
-        <CalendarMonths>
-          <CalendarMonth>
-            <CalendarMonthName />
-            <CalendarWeek />
-            <CalendarDays />
-          </CalendarMonth>
-        </CalendarMonths>
+        <CalendarBodyWrapper>
+          <CalendarBody>
+            <CalendarHeading />
+            <CalendarTopRow />
+            <CalendarPicker />
+          </CalendarBody>
+        </CalendarBodyWrapper>
       </Calendar>
     </CalendarAdapterProvider>
   )
@@ -818,13 +818,13 @@ export const WeekSelection: StoryFn<typeof Calendar> = () => {
           <CalendarNextButton />
         </CalendarControls>
 
-        <CalendarMonths>
-          <CalendarMonth>
-            <CalendarMonthName />
-            <CalendarWeek />
-            <CalendarDays />
-          </CalendarMonth>
-        </CalendarMonths>
+        <CalendarBodyWrapper>
+          <CalendarBody>
+            <CalendarHeading />
+            <CalendarTopRow />
+            <CalendarPicker />
+          </CalendarBody>
+        </CalendarBodyWrapper>
       </Calendar>
     </CalendarAdapterProvider>
   )
@@ -888,15 +888,15 @@ export const WithCustomDay: StoryFn<typeof Calendar> = () => {
           <CalendarNextButton />
         </CalendarControls>
 
-        <CalendarMonths>
-          <CalendarMonth>
-            <CalendarMonthName />
-            <CalendarWeek />
-            <CalendarDays>
+        <CalendarBodyWrapper>
+          <CalendarBody>
+            <CalendarHeading />
+            <CalendarTopRow />
+            <CalendarPicker>
               <CustomDay />
-            </CalendarDays>
-          </CalendarMonth>
-        </CalendarMonths>
+            </CalendarPicker>
+          </CalendarBody>
+        </CalendarBodyWrapper>
       </Calendar>
     </CalendarAdapterProvider>
   )
@@ -919,13 +919,13 @@ export const AllowSelectSameDay: StoryFn<typeof Calendar> = () => {
           <CalendarNextButton />
         </CalendarControls>
 
-        <CalendarMonths>
-          <CalendarMonth>
-            <CalendarMonthName />
-            <CalendarWeek />
-            <CalendarDays />
-          </CalendarMonth>
-        </CalendarMonths>
+        <CalendarBodyWrapper>
+          <CalendarBody>
+            <CalendarHeading />
+            <CalendarTopRow />
+            <CalendarPicker />
+          </CalendarBody>
+        </CalendarBodyWrapper>
       </Calendar>
     </CalendarAdapterProvider>
   )
@@ -962,13 +962,13 @@ export const WithCustomHandler: StoryFn<typeof Calendar> = () => {
           <CalendarNextButton />
         </CalendarControls>
 
-        <CalendarMonths>
-          <CalendarMonth>
-            <CalendarMonthName />
-            <CalendarWeek />
-            <CalendarDays />
-          </CalendarMonth>
-        </CalendarMonths>
+        <CalendarBodyWrapper>
+          <CalendarBody>
+            <CalendarHeading />
+            <CalendarTopRow />
+            <CalendarPicker />
+          </CalendarBody>
+        </CalendarBodyWrapper>
       </Calendar>
     </CalendarAdapterProvider>
   )

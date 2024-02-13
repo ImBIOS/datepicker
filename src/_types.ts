@@ -25,9 +25,11 @@ export type CalendarMonthThemeKeys =
   | 'month'
   | 'name'
   | 'week'
-  | 'weekday'
+  | 'topRow'
   | 'days'
-export type CalendarMonthStyles = Record<
+  | 'monthItems'
+  | 'quarter'
+export type CalendarBodyStyles = Record<
   CalendarMonthThemeKeys,
   SystemStyleObject
 >

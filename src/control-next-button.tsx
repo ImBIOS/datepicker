@@ -18,11 +18,29 @@ export function CalendarNextButton<TDate, TLocale>({
   const context = useCalendarContext<TDate, TLocale>()
 
   if (as) {
-    return as({ onClick: context.nextMonth })
+    switch (context.mode) {
+      case 'day':
+        return as({ onClick: context.nextMonth })
+      case 'month':
+        return as({ onClick: context.nextYear })
+      default:
+    }
+  }
+
+  const handleClick = () => {
+    switch (context.mode) {
+      case 'day':
+        context.nextMonth()
+        break
+      case 'month':
+        context.nextYear()
+        break
+      default:
+    }
   }
 
   return (
-    <Button onClick={context.nextMonth} sx={styles.button}>
+    <Button onClick={handleClick} sx={styles.button}>
       &#8594;
     </Button>
   )

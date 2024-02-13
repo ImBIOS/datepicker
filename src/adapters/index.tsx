@@ -1,4 +1,4 @@
-import { createContext, type PropsWithChildren, useContext } from 'react'
+import { createContext, useContext, type PropsWithChildren } from 'react'
 
 export type CalendarAdapterProps<TLocale> = {
   locale?: TLocale
@@ -8,8 +8,11 @@ export type CalendarAdapterProps<TLocale> = {
 export type AdapterFormats = {
   weekday: string
   month: string
+  shortMonth: string
+  monthYear: string
   monthDay: string
   day: string
+  year: string
 }
 
 export type CalendarAdapter<TDate, TLocale = void> = (
@@ -20,13 +23,17 @@ export type CalendarAdapter<TDate, TLocale = void> = (
   isValid: (v: TDate | undefined) => boolean
   addMonths: (v: TDate, amount: number) => TDate
   addDays: (v: TDate, amount: number) => TDate
+  startOfYear: (v: TDate) => TDate
+  endOfYear: (v: TDate) => TDate
   startOfMonth: (v: TDate) => TDate
   endOfMonth: (v: TDate) => TDate
   startOfWeek: (v: TDate) => TDate
   endOfWeek: (v: TDate) => TDate
   daysInRange: (start: TDate, end: TDate) => TDate[]
+  monthsInRange: (start: TDate, end: TDate) => TDate[]
   removeOutMonthDays: (days: TDate[], date: TDate) => Array<TDate | null>
   weekdays: (format?: string) => string[]
+  quarters: (format?: string) => string[]
   format: (
     v: TDate,
     formatKey: keyof AdapterFormats,

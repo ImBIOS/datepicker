@@ -1,5 +1,5 @@
 import { Flex, useMultiStyleConfig } from '@chakra-ui/react'
-import { useEffect, useRef, type PropsWithChildren } from 'react'
+import { useEffect, useRef, useState, type PropsWithChildren } from 'react'
 import { Target, type CalendarStyles } from './_types'
 import { useAdapter, type CalendarAdapter } from './adapters'
 import { CalendarContext } from './context'
@@ -17,7 +17,7 @@ export type CustomSelectHandler<TDate, TValue> = (
 ) => void
 
 type BaseCalendarProps<TDate, TLocale = void> = {
-  mode?: 'day' | 'month'
+  mode?: 'day' | 'month' // TODO: add support for 'year' and 'decade'
   months?: number
   locale?: TLocale
   allowOutsideDays?: boolean
@@ -81,6 +81,9 @@ function isSingleMode<TDate, TLocale>(
 export function Calendar<TDate, TLocale>(
   props: PropsWithChildren<CalendarProps<TDate, TLocale>>
 ) {
+  const [localMode, setLocalMode] = useState<'day' | 'month'>(
+    props.mode ?? 'day'
+  )
   const styles = useMultiStyleConfig('Calendar', {}) as CalendarStyles
 
   const adapter = useAdapter<TDate, TLocale>({
@@ -175,6 +178,8 @@ export function Calendar<TDate, TLocale>(
         weekStartsOn: props.weekStartsOn,
         highlightToday: props.highlightToday,
         adapter,
+        mode: localMode,
+        setMode: setLocalMode,
       }}
     >
       <Flex sx={styles.calendar}>{props.children}</Flex>

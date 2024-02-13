@@ -23,8 +23,11 @@ const createMockAdapter = <TDate, TLocale>() =>
     daysInRange: mockDaysInRange,
     removeOutMonthDays: mockRemoveOutMonthDays,
     defaultFormats: {
+      year: 'yyyy',
       weekday: 'long',
       month: 'long',
+      shortMonth: 'short',
+      monthYear: 'MMMM, yyyy',
       monthDay: 'MM/DD',
       day: 'DD',
     },
@@ -38,6 +41,10 @@ const createMockAdapter = <TDate, TLocale>() =>
     isToday: jest.fn(),
     isWeekend: jest.fn(),
     today: new Date() as TDate,
+    startOfYear: jest.fn(),
+    endOfYear: jest.fn(),
+    monthsInRange: jest.fn(),
+    quarters: jest.fn(),
   } satisfies ReturnType<CalendarAdapter<TDate, TLocale>>)
 
 // Resetting mocks before each test

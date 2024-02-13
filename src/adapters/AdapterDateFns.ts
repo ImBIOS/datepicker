@@ -3,8 +3,10 @@ import {
   addMonths,
   differenceInCalendarMonths,
   eachDayOfInterval,
+  eachMonthOfInterval,
   endOfMonth,
   endOfWeek,
+  endOfYear,
   format,
   isAfter,
   isBefore,
@@ -14,6 +16,7 @@ import {
   isWeekend,
   startOfMonth,
   startOfWeek,
+  startOfYear,
   type Locale,
 } from 'date-fns'
 import { type CalendarAdapter } from './index'
@@ -26,9 +29,12 @@ export const AdapterDateFns: CalendarAdapter<
 > = props => {
   const defaultFormats = {
     weekday: 'E',
-    month: 'MMMM, yyyy',
+    month: 'MMMM',
+    shortMonth: 'MMM',
+    monthYear: 'MMMM, yyyy',
     monthDay: 'MM-d',
     day: 'd',
+    year: 'yyyy',
   }
 
   const locale = (props.locale ?? enUS) as Locale
@@ -40,11 +46,14 @@ export const AdapterDateFns: CalendarAdapter<
     isValid: value => isValid(value),
     addMonths: (value, amount) => addMonths(value, amount),
     addDays: (value, amount) => addDays(value, amount),
+    startOfYear: value => startOfYear(value),
+    endOfYear: value => endOfYear(value),
     startOfMonth: value => startOfMonth(value),
     endOfMonth: value => endOfMonth(value),
     startOfWeek: value => startOfWeek(value, { locale, weekStartsOn }),
     endOfWeek: value => endOfWeek(value, { locale, weekStartsOn }),
     daysInRange: (start, end) => eachDayOfInterval({ start, end }),
+    monthsInRange: (start, end) => eachMonthOfInterval({ start, end }),
     removeOutMonthDays: (days, date) =>
       days.map(d => (isSameMonth(date, d) ? d : null)),
     weekdays: (formatString = defaultFormats.weekday) => {
@@ -54,6 +63,12 @@ export const AdapterDateFns: CalendarAdapter<
       })
       return Array.from({ length: 7 }, (_, i) =>
         format(addDays(start, i), formatString, { locale, weekStartsOn })
+      )
+    },
+    quarters: (formatString = 'qqq') => {
+      const start = startOfMonth(new Date())
+      return Array.from({ length: 4 }, (_, i) =>
+        format(addMonths(start, i * 3), formatString, { locale, weekStartsOn })
       )
     },
     format: (value, formatKey, formatString) =>

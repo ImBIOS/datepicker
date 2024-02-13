@@ -4,34 +4,34 @@ import { createContext, useContext } from 'react'
 import { CalendarBodyContext } from './calendar-body'
 import { useCalendarContext } from './context'
 
-export type CalendarDayContextType<TDate> = {
-  day: TDate
+export type CalendarMonthContextType<TDate> = {
+  month: TDate
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const DayContext = createContext<CalendarDayContextType<any>>({
-  day: null,
+export const MonthContext = createContext<CalendarMonthContextType<any>>({
+  month: null,
 })
 
-export function useCalendarDay<TDate, TLocale>() {
+export function useCalendarMonth<TDate, TLocale>() {
   const context = useCalendarContext<TDate, TLocale>()
 
-  const dayContext = useContext<CalendarDayContextType<TDate>>(DayContext)
+  const dayContext = useContext<CalendarMonthContextType<TDate>>(MonthContext)
   const monthContext = useContext(CalendarBodyContext)
 
   let variant: 'selected' | 'range' | 'outside' | 'today' | undefined
 
-  if (context.highlightToday && context.adapter.isToday(dayContext.day)) {
+  if (context.highlightToday && context.adapter.isToday(dayContext.month)) {
     variant = 'today'
   }
 
   const isStartDateSelected = Boolean(
     context.startSelectedDate &&
-      context.adapter.isSameDay(dayContext.day, context.startSelectedDate)
+      context.adapter.isSameDay(dayContext.month, context.startSelectedDate)
   )
   const isEndDateSelected = Boolean(
     context.endSelectedDate &&
-      context.adapter.isSameDay(dayContext.day, context.endSelectedDate)
+      context.adapter.isSameDay(dayContext.month, context.endSelectedDate)
   )
   const isSelected = isStartDateSelected || isEndDateSelected
 
@@ -41,12 +41,12 @@ export function useCalendarDay<TDate, TLocale>() {
 
   if (
     (context.adapter.isBefore(
-      dayContext.day,
-      context.dates[Number(monthContext.month)].startDateOfMonth
+      dayContext.month,
+      context.dates[Number(monthContext.month)].startDateOfYear
     ) ||
       context.adapter.isAfter(
-        dayContext.day,
-        context.dates[Number(monthContext.month)].endDateOfMonth
+        dayContext.month,
+        context.dates[Number(monthContext.month)].endDateOfYear
       )) &&
     !isSelected
   ) {
@@ -56,14 +56,14 @@ export function useCalendarDay<TDate, TLocale>() {
   const interval =
     context.startSelectedDate &&
     context.endSelectedDate &&
-    context.adapter.daysInRange(
+    context.adapter.monthsInRange(
       context.startSelectedDate,
       context.endSelectedDate
     )
 
   const isInRange = interval
     ? interval.some(
-        date => context.adapter.isSameDay(dayContext.day, date) && !isSelected
+        date => context.adapter.isSameDay(dayContext.month, date) && !isSelected
       )
     : false
 
@@ -74,26 +74,25 @@ export function useCalendarDay<TDate, TLocale>() {
   const isDisabled =
     (context.disablePastDates &&
       context.adapter.isBefore(
-        dayContext.day,
+        dayContext.month,
         typeof context.disablePastDates !== 'boolean'
           ? context.disablePastDates
-          : context.adapter.addDays(context.adapter.today, -1)
+          : context.adapter.addMonths(context.adapter.today, -1)
       )) ??
     (context.disableFutureDates &&
       context.adapter.isAfter(
-        dayContext.day,
+        dayContext.month,
         typeof context.disableFutureDates !== 'boolean'
           ? context.disableFutureDates
           : context.adapter.today
       )) ??
-    (context.disableWeekends && context.adapter.isWeekend(dayContext.day)) ??
     (context.disableDates &&
       context.disableDates.some(date =>
-        context.adapter.isSameDay(dayContext.day, date)
+        context.adapter.isSameDay(dayContext.month, date)
       ))
 
   return {
-    day: dayContext.day,
+    month: dayContext.month,
     variant,
     isSelected,
     interval,
