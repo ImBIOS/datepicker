@@ -8,6 +8,9 @@ export const mockCalendarAdapter: CalendarAdapter<unknown, unknown> = (
     month: 'long',
     monthDay: 'MM/DD',
     day: 'DD',
+    year: 'yyyy',
+    shortMonth: 'short',
+    monthYear: 'MMMM, yyyy',
   },
   today: new Date(),
   isValid: jest.fn(),
@@ -28,4 +31,7 @@ export const mockCalendarAdapter: CalendarAdapter<unknown, unknown> = (
   isToday: jest.fn(),
   isWeekend: jest.fn(),
   differenceInMonths: jest.fn(),
+  startOfYear: jest.fn(),
+  endOfYear: jest.fn(),
+  monthsInRange: jest.fn(),
 })

@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from 'react'
 import { type CalendarAdapter } from './adapters'
+import { type CalendarContextType } from './context'
 
 export type UseCalendarProps<TDate, TLocale> = {
   start: TDate
@@ -59,7 +60,9 @@ export function useCalendar<TDate, TLocale>({
             ? days
             : adapter.removeOutMonthDays(days, month),
           months,
-        }
+          startDateOfYear,
+          endDateOfYear,
+        } satisfies CalendarContextType<TDate, TLocale>['dates'][number]
       })
 
       return {
