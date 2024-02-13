@@ -7,17 +7,31 @@ const config: StorybookConfig = {
     '@storybook/addon-essentials',
     '@storybook/addon-onboarding',
     '@storybook/addon-interactions',
+    '@chakra-ui/storybook-addon',
   ],
+  webpackFinal: async config => {
+    config?.module?.rules?.push({
+      test: /\.mjs$/,
+      include: /node_modules/,
+      type: 'javascript/auto',
+    })
+
+    if (config.resolve?.alias) {
+      config.resolve.alias = {
+        ...config.resolve?.alias,
+        '@emotion/core': '@emotion/react',
+        'emotion-theming': '@emotion/react',
+      }
+    }
+
+    return config
+  },
   framework: {
     name: '@storybook/react-webpack5',
-    options: {
-      builder: {
-        useSWC: true,
-      },
-    },
+    options: { builder: { useSWC: true } },
   },
   docs: {
-    autodocs: 'tag',
+    autodocs: true,
   },
 }
 export default config
