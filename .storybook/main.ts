@@ -30,8 +30,17 @@ const config: StorybookConfig = {
     name: '@storybook/react-webpack5',
     options: { builder: { useSWC: true } },
   },
+  swc: () => ({
+    jsc: {
+      transform: {
+        react: {
+          runtime: 'automatic',
+        },
+      },
+    },
+  }),
   docs: {
-    autodocs: true,
+    autodocs: 'tag',
   },
 }
 export default config

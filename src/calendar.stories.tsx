@@ -41,7 +41,7 @@ import { AdapterDateFns } from './adapters/AdapterDateFns'
 import { AdapterDayjs } from './adapters/AdapterDayjs'
 
 export default {
-  title: 'calendar',
+  title: 'Calendar',
   component: Calendar,
 } as Meta<typeof Calendar>
 

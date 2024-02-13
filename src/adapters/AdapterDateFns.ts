@@ -14,14 +14,15 @@ import {
   isWeekend,
   startOfMonth,
   startOfWeek,
+  type Locale,
 } from 'date-fns'
 import { type CalendarAdapter } from './index'
 
-import localeEnUS from 'date-fns/locale/en-US'
+import enUS from 'date-fns/locale/en-US'
 
 export const AdapterDateFns: CalendarAdapter<
   Date,
-  (typeof localeEnUS)['enUS']
+  (typeof enUS)['enUS']
 > = props => {
   const defaultFormats = {
     weekday: 'E',
@@ -30,7 +31,7 @@ export const AdapterDateFns: CalendarAdapter<
     day: 'd',
   }
 
-  const locale = props.locale ?? localeEnUS.enUS
+  const locale = (props.locale ?? enUS) as Locale
   const weekStartsOn = props.weekStartsOn ?? locale.options?.weekStartsOn
 
   return {
