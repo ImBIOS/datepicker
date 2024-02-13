@@ -10,17 +10,15 @@ const getNextCanary = () => {
   if (!Array.isArray(versions)) {
     versions = [versions]
   }
-  const canaryVersions = versions.filter(version => version.includes('-canary'))
 
   const lastStableVersion = versions.sort(semver.rcompare)[0]
-  const latestCanary = canaryVersions.sort(semver.rcompare)[0]
-
-  const isShouldStartNewCanary = semver.gt(lastStableVersion, latestCanary)
 
   // Increment the patch version by default
-  const nextCanaryVersion = isShouldStartNewCanary
-    ? semver.inc(lastStableVersion, 'prerelease', 'canary')
-    : semver.inc(lastStableVersion, 'patch')
+  const nextCanaryVersion = semver.inc(
+    lastStableVersion,
+    'prerelease',
+    'canary'
+  )
   return nextCanaryVersion
 }
 
