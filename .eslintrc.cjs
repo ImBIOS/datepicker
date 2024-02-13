@@ -17,7 +17,7 @@ const config = {
   parserOptions: {
     project: true,
   },
-  plugins: ['react', '@typescript-eslint', 'react-hooks'],
+  plugins: ['react', '@typescript-eslint', 'react-hooks', 'deprecation'],
   extends: [
     'plugin:@typescript-eslint/recommended-type-checked',
     'plugin:@typescript-eslint/stylistic-type-checked',
@@ -25,6 +25,7 @@ const config = {
     'plugin:storybook/recommended',
   ],
   rules: {
+    'deprecation/deprecation': 'warn',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     'react/prop-types': 'off',

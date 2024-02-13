@@ -1,8 +1,8 @@
 import { Flex, useMultiStyleConfig } from '@chakra-ui/react'
 import { useEffect, useRef, type PropsWithChildren } from 'react'
+import { Target, type CalendarStyles } from './_types'
 import { useAdapter, type CalendarAdapter } from './adapters'
 import { CalendarContext } from './context'
-import { Target, type CalendarStyles } from './_types'
 import { useCalendar } from './useCalendar'
 
 export type CustomSelectHandler<TDate, TValue> = (
@@ -17,6 +17,7 @@ export type CustomSelectHandler<TDate, TValue> = (
 ) => void
 
 type BaseCalendarProps<TDate, TLocale = void> = {
+  mode?: 'day' | 'month'
   months?: number
   locale?: TLocale
   allowOutsideDays?: boolean
