@@ -19,23 +19,23 @@ export function CalendarNextButton<TDate, TLocale>({
 
   if (as) {
     switch (context.mode) {
-      case 'day':
-        return as({ onClick: context.nextMonth })
       case 'month':
         return as({ onClick: context.nextYear })
+      case 'day':
       default:
+        return as({ onClick: context.nextMonth })
     }
   }
 
   const handleClick = () => {
     switch (context.mode) {
-      case 'day':
-        context.nextMonth()
-        break
       case 'month':
         context.nextYear()
         break
       default:
+      case 'day':
+        context.nextMonth()
+        break
     }
   }
 

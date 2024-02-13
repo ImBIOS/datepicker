@@ -18,23 +18,23 @@ export function CalendarPrevButton<TDate, TLocale>({
 
   if (as) {
     switch (context.mode) {
-      case 'day':
-        return as({ onClick: context.prevMonth })
       case 'month':
         return as({ onClick: context.prevYear })
+      case 'day':
       default:
+        return as({ onClick: context.prevMonth })
     }
   }
 
   const handleClick = () => {
     switch (context.mode) {
-      case 'day':
-        context.prevMonth()
-        break
       case 'month':
         context.prevYear()
         break
+      case 'day':
       default:
+        context.prevMonth()
+        break
     }
   }
 
