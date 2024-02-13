@@ -595,6 +595,7 @@ export const WithInputPopoverStartEndDates: StoryFn<typeof Calendar> = () => {
 
       return setDates({ ...dates, start: startDate })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.start])
 
   React.useEffect(() => {
@@ -614,6 +615,7 @@ export const WithInputPopoverStartEndDates: StoryFn<typeof Calendar> = () => {
       onClose()
       return setDates({ ...dates, end: endDate })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.end])
 
   return (
