@@ -4,7 +4,7 @@ import { useCalendarContext } from './context'
 import { CalendarDay } from './day'
 import { MonthContext } from './month'
 import { DayContext } from './useCalendarDay'
-import { PropsWithChildren, useContext } from 'react'
+import { type PropsWithChildren, useContext } from 'react'
 
 export function CalendarDays<TDate, TLocale>({
   children,

@@ -1,5 +1,5 @@
-import { Button, ButtonProps, useStyleConfig } from '@chakra-ui/react'
-import { PropsWithChildren } from 'react'
+import { Button, useStyleConfig, type ButtonProps } from '@chakra-ui/react'
+import { type PropsWithChildren } from 'react'
 import { useCalendarContext } from './context'
 import { useCalendarDay } from './useCalendarDay'
 
@@ -26,7 +26,7 @@ export function CalendarDay<TDate, TLocale>({
       sx={{ ...styles, ...props }}
       {...props}
     >
-      {children || context.adapter.format(day, 'day')}
+      {children ?? context.adapter.format(day, 'day')}
     </Button>
   )
 }

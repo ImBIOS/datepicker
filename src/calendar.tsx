@@ -1,8 +1,8 @@
 import { Flex, useMultiStyleConfig } from '@chakra-ui/react'
-import { PropsWithChildren, useEffect, useRef } from 'react'
-import { CalendarAdapter, useAdapter } from './adapters'
+import { useEffect, useRef, type PropsWithChildren } from 'react'
+import { useAdapter, type CalendarAdapter } from './adapters'
 import { CalendarContext } from './context'
-import { CalendarStyles, Target } from './types'
+import { Target, type CalendarStyles } from './types'
 import { useCalendar } from './useCalendar'
 
 export type CustomSelectHandler<TDate, TValue> = (
@@ -28,11 +28,17 @@ type BaseCalendarProps<TDate, TLocale = void> = {
   weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6
   highlightToday?: boolean
   allowSelectSameDay?: boolean
-  customSelectHandler?: CustomSelectHandler<
-    TDate,
-    CalendarSingleDate<TDate> | CalendarDateRange<TDate>
-  >
-}
+} & (
+  | {
+      customSelectHandler?: CustomSelectHandler<
+        TDate,
+        CalendarSingleDate<TDate>
+      >
+    }
+  | {
+      customSelectHandler?: CustomSelectHandler<TDate, CalendarDateRange<TDate>>
+    }
+)
 
 export type CalendarSingleDate<TDate> = TDate | null | undefined
 
@@ -85,7 +91,7 @@ export function Calendar<TDate, TLocale>(
     allowOutsideDays: props.allowOutsideDays,
     blockFuture: props.disableFutureDates,
     start:
-      (isSingleMode(props) ? props.value : props.value?.start) || adapter.today,
+      (isSingleMode(props) ? props.value : props.value?.start) ?? adapter.today,
     months: props.months,
     adapter,
   })
@@ -104,9 +110,9 @@ export function Calendar<TDate, TLocale>(
 
   const selectDateHandler = (date: TDate) => {
     if (props.customSelectHandler) {
+      // @ts-expect-error not sure how to pass proper type here
       return props.customSelectHandler(date, {
         currentValue: props.value,
-        // @ts-expect-error not sure how to pass proper type here
         onSelectDate: props.onSelectDate,
         adapter,
         target: target.current,
@@ -127,7 +133,7 @@ export function Calendar<TDate, TLocale>(
 
     if (
       !props.allowSelectSameDay &&
-      ((props.value?.start && adapter.isSameDay(date, props.value.start)) ||
+      ((props.value?.start && adapter.isSameDay(date, props.value.start)) ??
         (props.value?.end && adapter.isSameDay(date, props.value.end)))
     ) {
       return

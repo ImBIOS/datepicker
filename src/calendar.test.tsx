@@ -9,22 +9,25 @@ import {
   useDisclosure,
   useOutsideClick,
 } from '@chakra-ui/react'
+import '@testing-library/jest-dom'
 import { addMonths, format, isAfter, isBefore, isValid } from 'date-fns'
 import * as React from 'react'
-import { fireEvent, render, screen } from '../.jest/with-theme'
 import {
   Calendar,
   CalendarAdapterProvider,
-  CalendarDateRange,
+  CalendarControls,
   CalendarDays,
   CalendarMonth,
   CalendarMonthName,
+  CalendarMonths,
   CalendarNextButton,
   CalendarPrevButton,
-  CalendarSingleDate,
   CalendarWeek,
-} from '../src'
-import { AdapterDateFns } from '../src/adapters/AdapterDateFns'
+  type CalendarDateRange,
+  type CalendarSingleDate,
+} from '.'
+import { fireEvent, render, screen } from '../.jest/with-theme'
+import { AdapterDateFns } from './adapters/AdapterDateFns'
 
 function CalendarBasic() {
   const [date, setDate] = React.useState<CalendarSingleDate<Date>>(new Date())
@@ -37,7 +40,7 @@ function CalendarBasic() {
 
   const handleSelectDate = (date: CalendarSingleDate<Date>) => {
     setDate(date)
-    setValue(() => (isValid(date) ? format(date, 'MM/dd/yyyy') : ''))
+    setValue(() => (isValid(date) ? format(date!, 'MM/dd/yyyy') : ''))
     onClose()
   }
 
@@ -142,10 +145,8 @@ function CalendarRange() {
     setDates(dates)
 
     setValues({
-      start: isValid(dates.start)
-        ? format(dates.start as Date, 'MM/dd/yyyy')
-        : '',
-      end: isValid(dates.end) ? format(dates.end as Date, 'MM/dd/yyyy') : '',
+      start: isValid(dates.start) ? format(dates.start!, 'MM/dd/yyyy') : '',
+      end: isValid(dates.end) ? format(dates.end!, 'MM/dd/yyyy') : '',
     })
 
     if (dates.end) {

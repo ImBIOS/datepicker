@@ -2,8 +2,11 @@
 
 [![npm version](https://badge.fury.io/js/%40imbios%2Fdatepicker.svg)](https://badge.fury.io/js/%40imbios%2Fdatepicker)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-10-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 A powerful and simple-to-use datepicker component for web applications, built with [date-fns](https://date-fns.org/) for date management and styled using [Chakra-UI](https://chakra-ui.com/), a modular and accessible component library. This README provides all the necessary information to get started, customize the component, and contribute to its development.
@@ -40,8 +43,8 @@ bun add @imbios/datepicker
 Below is an example showcasing how to integrate the datepicker into your application, using Chakra-UI's provider for theming:
 
 ```tsx
-import { useState } from 'react';
-import { ChakraProvider } from '@chakra-ui/react';
+import { useState } from 'react'
+import { ChakraProvider } from '@chakra-ui/react'
 import {
   Calendar,
   CalendarDefaultTheme,
@@ -53,12 +56,12 @@ import {
   CalendarMonthName,
   CalendarWeek,
   CalendarDays,
-} from '@imbios/datepicker';
+} from '@imbios/datepicker'
 
 export function App() {
-  const [dates, setDates] = useState();
+  const [dates, setDates] = useState()
 
-  const handleSelectDate = (values) => setDates(values);
+  const handleSelectDate = values => setDates(values)
 
   return (
     <ChakraProvider theme={CalendarDefaultTheme}>
@@ -76,7 +79,7 @@ export function App() {
         </CalendarMonths>
       </Calendar>
     </ChakraProvider>
-  );
+  )
 }
 ```
 
@@ -87,8 +90,8 @@ Note: This example displays the calendar without an input field. For integration
 Customize the Calendar component using Chakra-UI's `extendTheme` feature. Below is an example showing how to override the default theme:
 
 ```ts
-import { extendTheme } from '@chakra-ui/react';
-import { CalendarDefaultTheme } from '@imbios/datepicker';
+import { extendTheme } from '@chakra-ui/react'
+import { CalendarDefaultTheme } from '@imbios/datepicker'
 
 export const theme = extendTheme(CalendarDefaultTheme, {
   components: {
@@ -124,7 +127,7 @@ export const theme = extendTheme(CalendarDefaultTheme, {
       },
     },
   },
-});
+})
 ```
 
 ## Theming: Available Components Theme Keys

@@ -1,4 +1,5 @@
 import { Heading, useMultiStyleConfig } from '@chakra-ui/react'
+import { useContext } from 'react'
 import { useCalendarContext } from './context'
 import { MonthContext } from './month'
 import { type CalendarMonthStyles } from './types'
@@ -12,7 +13,7 @@ export function CalendarMonthName<TDate, TLocale>({
 }: CalendarMonthNameProps) {
   const styles = useMultiStyleConfig('CalendarMonth', {}) as CalendarMonthStyles
   const context = useCalendarContext<TDate, TLocale>()
-  const monthContext = React.useContext(MonthContext)
+  const monthContext = useContext(MonthContext)
   const currentMonth =
     context.dates[Number(monthContext.month)].startDateOfMonth
 
