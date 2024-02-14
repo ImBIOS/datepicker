@@ -8,6 +8,7 @@ const config: StorybookConfig = {
     '@storybook/addon-onboarding',
     '@storybook/addon-interactions',
     '@chakra-ui/storybook-addon',
+    '@storybook/addon-a11y',
   ],
   webpackFinal: async config => {
     config?.module?.rules?.push({

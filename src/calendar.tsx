@@ -17,6 +17,10 @@ export type CustomSelectHandler<TDate, TValue> = (
 ) => void
 
 type BaseCalendarProps<TDate, TLocale = void> = {
+  /**
+   * The initial mode of the calendar
+   * @default 'day'
+   */
   mode?: 'day' | 'month' // TODO: add support for 'year' and 'decade'
   months?: number
   locale?: TLocale

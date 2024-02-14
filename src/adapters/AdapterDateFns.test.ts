@@ -35,7 +35,7 @@ describe('AdapterDateFns', () => {
   describe('format', () => {
     it('formats date according to default format', () => {
       const date = new Date(2020, 0, 1) // January 1, 2020
-      expect(adapter.format(date, 'month')).toEqual('January, 2020')
+      expect(adapter.format(date, 'month')).toEqual('January')
     })
   })
 

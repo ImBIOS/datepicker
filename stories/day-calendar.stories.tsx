@@ -135,7 +135,7 @@ CustomLocale.argTypes = {
 }
 
 CustomLocale.args = {
-  locale: locales.ptBR,
+  locale: locales.id,
 }
 
 export const DisablePastDates: StoryFn<typeof Calendar> = () => {
