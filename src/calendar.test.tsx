@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react'
 import '@testing-library/jest-dom'
 import { addMonths, format, isAfter, isBefore, isValid } from 'date-fns'
-import * as React from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   Calendar,
   CalendarAdapterProvider,
@@ -30,13 +30,13 @@ import { fireEvent, render, screen } from '../.jest/with-theme'
 import { AdapterDateFns } from './adapters/AdapterDateFns'
 
 function CalendarBasic() {
-  const [date, setDate] = React.useState<CalendarSingleDate<Date>>(new Date())
-  const [value, setValue] = React.useState('')
+  const [date, setDate] = useState<CalendarSingleDate<Date>>(new Date())
+  const [value, setValue] = useState('')
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  const initialRef = React.useRef(null)
-  const calendarRef = React.useRef(null)
+  const initialRef = useRef(null)
+  const calendarRef = useRef(null)
 
   const handleSelectDate = (date: CalendarSingleDate<Date>) => {
     setDate(date)
@@ -62,7 +62,7 @@ function CalendarBasic() {
     enabled: isOpen,
   })
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (match(value)) {
       const date = new Date(value)
 
@@ -126,18 +126,18 @@ function CalendarBasic() {
 }
 
 function CalendarRange() {
-  const [dates, setDates] = React.useState<CalendarDateRange<Date>>({})
-  const [values, setValues] = React.useState({
+  const [dates, setDates] = useState<CalendarDateRange<Date>>({})
+  const [values, setValues] = useState({
     start: '',
     end: '',
   })
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  const initialRef = React.useRef(null)
-  const calendarRef = React.useRef(null)
-  const startInputRef = React.useRef<HTMLInputElement>(null)
-  const endInputRef = React.useRef<HTMLInputElement>(null)
+  const initialRef = useRef(null)
+  const calendarRef = useRef(null)
+  const startInputRef = useRef<HTMLInputElement>(null)
+  const endInputRef = useRef<HTMLInputElement>(null)
 
   const MONTHS = 2
 
@@ -175,7 +175,7 @@ function CalendarRange() {
     enabled: isOpen,
   })
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (match(values.start)) {
       const startDate = new Date(values.start)
       const isValidStartDate = isValid(startDate)
@@ -191,7 +191,7 @@ function CalendarRange() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.start])
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (match(values.end)) {
       const endDate = new Date(values.end)
       const isValidEndDate = isValid(endDate)
@@ -289,11 +289,11 @@ function CalendarRange() {
 const TODAY = new Date()
 const CURRENT_MONTH_NUMBER = format(TODAY, 'MM')
 const CURRENT_YEAR = format(TODAY, 'yyyy')
-const CURRENT_CALENDAR_NAME = format(TODAY, 'MMMM, yyyy')
+const CURRENT_CALENDAR_NAME = format(TODAY, 'MMMM yyyy')
 
 const NEXT_MONTH = addMonths(TODAY, 1)
 const NEXT_MONTH_NUMBER = format(NEXT_MONTH, 'MM')
-const NEXT_CALENDAR_NAME = format(NEXT_MONTH, 'MMMM, yyyy')
+const NEXT_CALENDAR_NAME = format(NEXT_MONTH, 'MMMM yyyy')
 
 test('should select a date', () => {
   render(<CalendarBasic />)

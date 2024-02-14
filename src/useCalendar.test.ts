@@ -45,7 +45,7 @@ const createMockAdapter = <TDate, TLocale>() =>
     endOfYear: jest.fn(),
     monthsInRange: jest.fn(),
     quarters: jest.fn(),
-  } satisfies ReturnType<CalendarAdapter<TDate, TLocale>>)
+  }) satisfies ReturnType<CalendarAdapter<TDate, TLocale>>
 
 // Resetting mocks before each test
 beforeEach(() => {

@@ -17,11 +17,10 @@ import {
   startOfMonth,
   startOfWeek,
   startOfYear,
-  type Locale,
 } from 'date-fns'
 import { type CalendarAdapter } from './index'
 
-import enUS from 'date-fns/locale/en-US'
+import type enUS from 'date-fns/locale/en-US'
 
 export const AdapterDateFns: CalendarAdapter<
   Date,
@@ -37,8 +36,8 @@ export const AdapterDateFns: CalendarAdapter<
     year: 'yyyy',
   }
 
-  const locale = (props.locale ?? enUS) as Locale
-  const weekStartsOn = props.weekStartsOn ?? locale.options?.weekStartsOn
+  const locale = props.locale
+  const weekStartsOn = props.weekStartsOn
 
   return {
     defaultFormats,
