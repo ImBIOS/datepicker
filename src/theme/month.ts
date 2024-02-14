@@ -1,35 +1,67 @@
-import { type ComponentMultiStyleConfig } from '@chakra-ui/react'
+import { type ComponentSingleStyleConfig } from '@chakra-ui/react'
 
-export const CalendarMonth: ComponentMultiStyleConfig = {
-  parts: ['month', 'name', 'week', 'weekday', 'days'],
-
+export const CalendarMonth: ComponentSingleStyleConfig = {
   baseStyle: {
-    name: {
-      h: 8,
-      fontSize: 'md',
-      lineHeight: 6,
-      textAlign: 'center',
-      textTransform: 'capitalize',
+    rounded: 'none',
+    bgColor: 'transparent',
+
+    _hover: {
+      bgColor: 'gray.100',
     },
 
-    week: {
-      gridTemplateColumns: 'repeat(7, 1fr)',
+    _disabled: {
+      color: 'gray.200',
+      _hover: {
+        cursor: 'initial',
+        bgColor: 'transparent',
+      },
+    },
+  },
+
+  sizes: {
+    md: {
+      h: 16,
+      w: 16,
+    },
+  },
+
+  variants: {
+    selected: {
+      bgColor: 'pink.400',
+      color: 'white',
+
+      _hover: {
+        bgColor: 'pink.300',
+      },
     },
 
-    weekday: {
-      color: 'gray.500',
-      textAlign: 'center',
-      textTransform: 'capitalize',
+    range: {
+      bgColor: 'pink.200',
+      color: 'white',
+
+      _hover: {
+        bgColor: 'pink.100',
+      },
+
+      _disabled: {
+        _hover: {
+          bgColor: 'pink.300',
+        },
+      },
     },
 
-    days: {
-      gridTemplateColumns: 'repeat(7, 1fr)',
+    outside: {
+      color: 'gray.300',
+    },
+    today: {
+      bgColor: 'pink.100',
+      _hover: {
+        bgColor: 'pink.200',
+      },
     },
   },
 
   defaultProps: {
-    name: {
-      as: 'h2',
-    },
+    size: 'md',
   },
 }

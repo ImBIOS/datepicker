@@ -6,6 +6,8 @@ on:
     # This cron job runs at 00:00 on the first day of every month
     - cron: '0 0 1 * *'
 
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
 jobs:
   stable-release:
     runs-on: ubuntu-latest
@@ -28,8 +30,14 @@ jobs:
         run: |
           CANARY_EXISTS=$(bun scripts/check-canary.ts) # This script should output "true" or "false"
           echo "CANARY_EXISTS=$CANARY_EXISTS" >> $GITHUB_ENV
-      - name: Test
-        run: bun test
+      - name: Run type tests
+        run: bun run type-check
+      - name: Run lint tests
+        run: bun run lint
+      - name: Run format tests
+        run: bun run fmt-check
+      - name: Run tests
+        run: bun run test --collect-coverage
       - name: Build and Publish Latest
         if: env.CANARY_EXISTS == 'true'
         run: ./scripts/build-and-publish.sh

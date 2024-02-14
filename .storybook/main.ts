@@ -1,13 +1,14 @@
 import type { StorybookConfig } from '@storybook/react-webpack5'
 
 const config: StorybookConfig = {
-  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+  stories: ['../**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/addon-onboarding',
     '@storybook/addon-interactions',
     '@chakra-ui/storybook-addon',
+    '@storybook/addon-a11y',
   ],
   webpackFinal: async config => {
     config?.module?.rules?.push({
@@ -30,8 +31,17 @@ const config: StorybookConfig = {
     name: '@storybook/react-webpack5',
     options: { builder: { useSWC: true } },
   },
+  swc: () => ({
+    jsc: {
+      transform: {
+        react: {
+          runtime: 'automatic',
+        },
+      },
+    },
+  }),
   docs: {
-    autodocs: true,
+    autodocs: 'tag',
   },
 }
 export default config

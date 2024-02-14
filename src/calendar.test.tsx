@@ -11,18 +11,18 @@ import {
 } from '@chakra-ui/react'
 import '@testing-library/jest-dom'
 import { addMonths, format, isAfter, isBefore, isValid } from 'date-fns'
-import * as React from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   Calendar,
   CalendarAdapterProvider,
+  CalendarBody,
+  CalendarBodyWrapper,
   CalendarControls,
-  CalendarDays,
-  CalendarMonth,
-  CalendarMonthName,
-  CalendarMonths,
+  CalendarHeading,
   CalendarNextButton,
+  CalendarPicker,
   CalendarPrevButton,
-  CalendarWeek,
+  CalendarTopRow,
   type CalendarDateRange,
   type CalendarSingleDate,
 } from '.'
@@ -30,13 +30,13 @@ import { fireEvent, render, screen } from '../.jest/with-theme'
 import { AdapterDateFns } from './adapters/AdapterDateFns'
 
 function CalendarBasic() {
-  const [date, setDate] = React.useState<CalendarSingleDate<Date>>(new Date())
-  const [value, setValue] = React.useState('')
+  const [date, setDate] = useState<CalendarSingleDate<Date>>(new Date())
+  const [value, setValue] = useState('')
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  const initialRef = React.useRef(null)
-  const calendarRef = React.useRef(null)
+  const initialRef = useRef(null)
+  const calendarRef = useRef(null)
 
   const handleSelectDate = (date: CalendarSingleDate<Date>) => {
     setDate(date)
@@ -62,7 +62,7 @@ function CalendarBasic() {
     enabled: isOpen,
   })
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (match(value)) {
       const date = new Date(value)
 
@@ -109,13 +109,13 @@ function CalendarBasic() {
                   <CalendarNextButton />
                 </CalendarControls>
 
-                <CalendarMonths>
-                  <CalendarMonth>
-                    <CalendarMonthName />
-                    <CalendarWeek />
-                    <CalendarDays />
-                  </CalendarMonth>
-                </CalendarMonths>
+                <CalendarBodyWrapper>
+                  <CalendarBody>
+                    <CalendarHeading />
+                    <CalendarTopRow />
+                    <CalendarPicker />
+                  </CalendarBody>
+                </CalendarBodyWrapper>
               </PopoverBody>
             </Calendar>
           </PopoverContent>
@@ -126,18 +126,18 @@ function CalendarBasic() {
 }
 
 function CalendarRange() {
-  const [dates, setDates] = React.useState<CalendarDateRange<Date>>({})
-  const [values, setValues] = React.useState({
+  const [dates, setDates] = useState<CalendarDateRange<Date>>({})
+  const [values, setValues] = useState({
     start: '',
     end: '',
   })
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  const initialRef = React.useRef(null)
-  const calendarRef = React.useRef(null)
-  const startInputRef = React.useRef<HTMLInputElement>(null)
-  const endInputRef = React.useRef<HTMLInputElement>(null)
+  const initialRef = useRef(null)
+  const calendarRef = useRef(null)
+  const startInputRef = useRef<HTMLInputElement>(null)
+  const endInputRef = useRef<HTMLInputElement>(null)
 
   const MONTHS = 2
 
@@ -175,7 +175,7 @@ function CalendarRange() {
     enabled: isOpen,
   })
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (match(values.start)) {
       const startDate = new Date(values.start)
       const isValidStartDate = isValid(startDate)
@@ -188,9 +188,10 @@ function CalendarRange() {
 
       return setDates({ ...dates, start: startDate })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.start])
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (match(values.end)) {
       const endDate = new Date(values.end)
       const isValidEndDate = isValid(endDate)
@@ -207,6 +208,7 @@ function CalendarRange() {
       onClose()
       return setDates({ ...dates, end: endDate })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.end])
 
   return (
@@ -266,15 +268,15 @@ function CalendarRange() {
                   <CalendarNextButton />
                 </CalendarControls>
 
-                <CalendarMonths>
+                <CalendarBodyWrapper>
                   {Array.from({ length: MONTHS }, (_, month) => (
-                    <CalendarMonth key={month} month={month}>
-                      <CalendarMonthName />
-                      <CalendarWeek />
-                      <CalendarDays />
-                    </CalendarMonth>
+                    <CalendarBody key={month} month={month}>
+                      <CalendarHeading />
+                      <CalendarTopRow />
+                      <CalendarPicker />
+                    </CalendarBody>
                   ))}
-                </CalendarMonths>
+                </CalendarBodyWrapper>
               </PopoverBody>
             </Calendar>
           </PopoverContent>
@@ -287,11 +289,11 @@ function CalendarRange() {
 const TODAY = new Date()
 const CURRENT_MONTH_NUMBER = format(TODAY, 'MM')
 const CURRENT_YEAR = format(TODAY, 'yyyy')
-const CURRENT_CALENDAR_NAME = format(TODAY, 'MMMM, yyyy')
+const CURRENT_CALENDAR_NAME = format(TODAY, 'MMMM yyyy')
 
 const NEXT_MONTH = addMonths(TODAY, 1)
 const NEXT_MONTH_NUMBER = format(NEXT_MONTH, 'MM')
-const NEXT_CALENDAR_NAME = format(NEXT_MONTH, 'MMMM, yyyy')
+const NEXT_CALENDAR_NAME = format(NEXT_MONTH, 'MMMM yyyy')
 
 test('should select a date', () => {
   render(<CalendarBasic />)
@@ -299,11 +301,15 @@ test('should select a date', () => {
   const INPUT = screen.getByPlaceholderText(/select a date/i)
   fireEvent.click(INPUT)
 
-  const CALENDAR_HEADER = screen.getByRole('heading')
+  const CALENDAR_HEADER = screen.getByRole('heading', { hidden: true })
   expect(CALENDAR_HEADER).toHaveTextContent(CURRENT_CALENDAR_NAME)
 
   fireEvent.click(
-    screen.getByRole('button', { name: `${CURRENT_MONTH_NUMBER}-5` })
+    screen.getByRole('button', {
+      name: (_accessibleName, element) =>
+        element.getAttribute('aria-label') === `${CURRENT_MONTH_NUMBER}-5`,
+      hidden: true,
+    })
   )
   expect(INPUT).toHaveValue(`${CURRENT_MONTH_NUMBER}/05/${CURRENT_YEAR}`)
 
@@ -316,7 +322,7 @@ test('should change date in input', () => {
   const INPUT = screen.getByPlaceholderText(/select a date/i)
   fireEvent.click(INPUT)
 
-  const CALENDAR_HEADER = screen.getByRole('heading')
+  const CALENDAR_HEADER = screen.getByRole('heading', { hidden: true })
   expect(CALENDAR_HEADER).toHaveTextContent(CURRENT_CALENDAR_NAME)
 
   fireEvent.change(INPUT, { target: { value: '01/10/2022' } })
@@ -324,9 +330,9 @@ test('should change date in input', () => {
   fireEvent.click(INPUT)
 
   expect(INPUT).toHaveValue('01/10/2022')
-  expect(screen.getByRole('button', { current: 'date' })).toHaveTextContent(
-    '10'
-  )
+  expect(
+    screen.getByRole('button', { current: 'date', hidden: true })
+  ).toHaveTextContent('10')
 
   fireEvent.change(INPUT, { target: { value: '01/05/2022' } })
 
@@ -341,17 +347,27 @@ test('should select a range date interval', () => {
 
   fireEvent.click(START_INPUT)
 
-  const [HEADING_FIRST, HEADING_SECOND] = screen.getAllByRole('heading')
+  const [HEADING_FIRST, HEADING_SECOND] = screen.getAllByRole('heading', {
+    hidden: true,
+  })
 
   expect(HEADING_FIRST).toHaveTextContent(CURRENT_CALENDAR_NAME)
   expect(HEADING_SECOND).toHaveTextContent(NEXT_CALENDAR_NAME)
 
   fireEvent.click(
-    screen.getByRole('button', { name: `${CURRENT_MONTH_NUMBER}-5` })
+    screen.getByRole('button', {
+      name: (_accessibleName, element) =>
+        element.getAttribute('aria-label') === `${CURRENT_MONTH_NUMBER}-5`,
+      hidden: true,
+    })
   )
 
   fireEvent.click(
-    screen.getByRole('button', { name: `${NEXT_MONTH_NUMBER}-5` })
+    screen.getByRole('button', {
+      name: (_accessibleName, element) =>
+        element.getAttribute('aria-label') === `${NEXT_MONTH_NUMBER}-5`,
+      hidden: true,
+    })
   )
 
   expect(START_INPUT).toHaveValue(`${CURRENT_MONTH_NUMBER}/05/${CURRENT_YEAR}`)
@@ -369,7 +385,9 @@ test('should change a range date interval in input', () => {
 
   fireEvent.click(START_INPUT)
 
-  const [HEADING_FIRST, HEADING_SECOND] = screen.getAllByRole('heading')
+  const [HEADING_FIRST, HEADING_SECOND] = screen.getAllByRole('heading', {
+    hidden: true,
+  })
 
   expect(HEADING_FIRST).toHaveTextContent(CURRENT_CALENDAR_NAME)
   expect(HEADING_SECOND).toHaveTextContent(NEXT_CALENDAR_NAME)
@@ -385,6 +403,7 @@ test('should change a range date interval in input', () => {
 
   const [FIRST_SELECTED, SECOND_SELECTED] = screen.getAllByRole('button', {
     current: 'date',
+    hidden: true,
   })
 
   expect(FIRST_SELECTED).toHaveTextContent('10')
@@ -404,7 +423,9 @@ test('should change a range date interval end before start and start after end',
 
   fireEvent.click(START_INPUT)
 
-  const [HEADING_FIRST, HEADING_SECOND] = screen.getAllByRole('heading')
+  const [HEADING_FIRST, HEADING_SECOND] = screen.getAllByRole('heading', {
+    hidden: true,
+  })
 
   expect(HEADING_FIRST).toHaveTextContent(CURRENT_CALENDAR_NAME)
   expect(HEADING_SECOND).toHaveTextContent(NEXT_CALENDAR_NAME)
@@ -420,8 +441,16 @@ test('should change a range date interval end before start and start after end',
 
   expect(END_INPUT).toHaveFocus()
 
-  const FIRST_HEADING = screen.getByRole('heading', { name: 'January, 2022' })
-  const LAST_HEADING = screen.getByRole('heading', { name: 'February, 2022' })
+  const FIRST_HEADING = screen.getByRole('heading', {
+    name: (_accessibleName, element) =>
+      element.getAttribute('aria-label') === 'January, 2022',
+    hidden: true,
+  })
+  const LAST_HEADING = screen.getByRole('heading', {
+    name: (_accessibleName, element) =>
+      element.getAttribute('aria-label') === 'February, 2022',
+    hidden: true,
+  })
 
   fireEvent.change(END_INPUT, { target: { value: '01/05/2022' } })
   expect(START_INPUT).toHaveValue('')
