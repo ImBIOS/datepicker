@@ -37,6 +37,8 @@ bun add @imbios/datepicker
 
 Below is an example showcasing how to integrate the datepicker into your application, using Chakra-UI's provider for theming:
 
+TODO: Update below example with newest date library agnostic approach
+
 ```tsx
 import { useState } from 'react'
 import { ChakraProvider } from '@chakra-ui/react'
