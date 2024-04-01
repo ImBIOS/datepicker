@@ -1,6 +1,6 @@
 {
   "name": "@imbios/datepicker",
-  "version": "3.0.0",
+  "version": "2.7.1",
   "description": "A simple react datepicker build with chakra-ui and date-fns",
   "type": "module",
   "main": "dist/index.cjs",
